@@ -22,7 +22,7 @@ const Navigation = ({ menuState, toggleMenuFunc }) => {
       >
         <nav
           className="side-navigation"
-          style={menuState ? { width: "50vw" } : { width: "0" }}
+          style={menuState ? { right: "0vw" } : { right: "-50vw" }}
           id="navigation"
         >
           <ul>
