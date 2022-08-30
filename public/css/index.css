@@ -1,0 +1,9 @@
+* {
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  max-height: 100vh;
+  background: rgb(220, 220, 220);
+  overflow: hidden;
+}
