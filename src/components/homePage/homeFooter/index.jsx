@@ -8,7 +8,7 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
     <div
       className="footer"
       id="footer"
-      style={shiftInfo ? { bottom: "10px" } : { bottom: "-25vh" }}
+      style={shiftInfo ? { bottom: "0px" } : { bottom: "-35vh" }}
     >
       <div className="footer-container">
         <div className="shift-info" id="shiftInfo">
