@@ -1,0 +1,85 @@
+.container {
+  justify-content: normal;
+}
+
+.main {
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.shift-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 7px solid #0000b3;
+  border-radius: 50%;
+  width: 230px;
+  height: 230px;
+  margin-top: 5px;
+  box-shadow: 0px 15px 20px rgba(0, 0, 179, 0.1);
+}
+
+.span-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-span {
+  display: block;
+}
+
+.status {
+  font-size: 15px;
+  font-weight: 300;
+  color: #8b8b8b;
+}
+
+.time-passed {
+  font-size: 40px;
+  font-weight: 500;
+  margin-top: 7px;
+}
+
+.earned {
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.shift-controls {
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brake-button {
+  border: 1px solid #00b3b3;
+  width: 170px;
+  height: 60px;
+  background: #fff;
+  border-radius: 5px;
+  transition: all ease-in 0.1s;
+}
+
+.brake-button:active {
+  background: rgb(124, 124, 124);
+}
+
+.finish-button {
+  margin-top: 25px;
+  width: 260px;
+  height: 60px;
+  background: #f16969;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  transition: all ease-in 0.1s;
+}
+
+.finish-button:active {
+  background: #f89696;
+}

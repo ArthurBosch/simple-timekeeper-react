@@ -3,8 +3,8 @@ import "./components/header/header.css";
 import Header from "./components/header";
 import HomePage from "./components/homePage";
 import Navigation from "./components/nav";
-import ListPage from "./components/listPage/listPage";
-import ShiftPage from "./components/shiftPage/shiftPage";
+import ListPage from "./components/listPage";
+import ShiftPage from "./components/shiftPage";
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
