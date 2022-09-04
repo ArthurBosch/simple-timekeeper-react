@@ -7,6 +7,8 @@ import ListPage from "./components/listPage";
 import ShiftPage from "./components/shiftPage";
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { createContext } from "react";
+export const AppContext = createContext(null);
 
 function App() {
   const [menu, toggleMenu] = useState(false);
@@ -19,18 +21,22 @@ function App() {
     }
   };
 
+  const [pageName, changePageName] = useState("Start Shift");
+
   return (
-    <Router>
-      <div className="App">
-        <Header toggleMenuFunc={toggleMenuFunc} />
-        <Navigation menuState={menu} toggleMenuFunc={toggleMenuFunc} />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/list" element={<ListPage />} />
-          <Route path="/shift" element={<ShiftPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <AppContext.Provider value={{ changePageName }}>
+      <Router>
+        <div className="App">
+          <Header toggleMenuFunc={toggleMenuFunc} pageName={pageName} />
+          <Navigation menuState={menu} toggleMenuFunc={toggleMenuFunc} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/list" element={<ListPage />} />
+            <Route path="/shift" element={<ShiftPage />} />
+          </Routes>
+        </div>
+      </Router>
+    </AppContext.Provider>
   );
 }
 

@@ -1,6 +1,12 @@
 import "./shiftPage.css";
+import { useContext, useEffect } from "react";
+import App, { AppContext } from "../../App";
 
 const ShiftPage = () => {
+  const { changePageName } = useContext(AppContext);
+  useEffect(() => {
+    changePageName("My Shift");
+  }, []);
   return (
     <div className="main" id="main">
       <div className="shift-time">
