@@ -1,11 +1,16 @@
 import { useEffect, useContext } from "react";
 import { AppContext } from "../../App";
+import { useState } from "react";
+
 import "./listPage.css";
 import plus from "../../svg/plus.svg";
 import ShiftListItem from "./shiftListItem/shiftListItem";
 import db from "../../db.json";
 
+import ShiftListInfo from "./shiftListInfo";
+
 const ListPage = () => {
+  //DATA
   const { changePageName } = useContext(AppContext);
   useEffect(() => {
     changePageName("My Shifts");
@@ -19,6 +24,9 @@ const ListPage = () => {
     });
   };
 
+  //UI STATE
+  const [shiftInfo, toggleShiftInfo] = useState(true);
+
   return (
     <div className="list-page--container" id="list-container">
       <div className="add-shift">
@@ -28,6 +36,7 @@ const ListPage = () => {
         </button>
       </div>
       <div className="shift-list">{renderShifts()}</div>
+      {shiftInfo && <ShiftListInfo />}
     </div>
   );
 };

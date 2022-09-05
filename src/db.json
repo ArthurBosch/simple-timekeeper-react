@@ -20,6 +20,13 @@
       "day": "thurs",
       "shiftStart": "12:15",
       "shiftEnd": "21:30"
+    },
+    {
+      "id": 4,
+      "num": "12",
+      "day": "thurs",
+      "shiftStart": "12:15",
+      "shiftEnd": "21:30"
     }
   ]
 }

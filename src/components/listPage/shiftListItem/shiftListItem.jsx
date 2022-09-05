@@ -1,6 +1,5 @@
 const ShiftListItem = ({ props }) => {
   const { num, day, shiftStart, shiftEnd } = props;
-  console.log(props);
 
   return (
     <div className="shift-list--item">
