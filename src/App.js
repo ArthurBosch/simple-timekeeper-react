@@ -55,14 +55,7 @@ function App() {
 
   const createNewShift = () => {
     let newShift = "";
-    let newID = "";
-
-    if (data.length > 0) {
-      const lastID = data[data.length - 1];
-      newID = lastID.id + 1;
-    } else {
-      newID = 1;
-    }
+    let newID = new Date().getTime();
 
     newShift = {
       id: newID,
