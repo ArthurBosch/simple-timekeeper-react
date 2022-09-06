@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     fetch(`${PORT}/shifts`)
       .then((res) => res.json())
-      .then((data) => setData(data));
+      .then((data) => setData(data.reverse()));
   }, []);
 
   //ACTIVE SHIFT

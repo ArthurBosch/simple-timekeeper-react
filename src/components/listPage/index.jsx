@@ -27,7 +27,7 @@ const ListPage = () => {
   const { data } = useContext(AppDataContext);
   const renderShifts = () => {
     if (data) {
-      return data.reverse().map((shift) => {
+      return data.map((shift) => {
         return (
           <ShiftListItem
             props={shift}

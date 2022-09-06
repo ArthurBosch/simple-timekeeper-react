@@ -34,6 +34,21 @@ const ShiftPage = () => {
     }, 1000);
   });
 
+  const pseudoChart = {
+    position: "absolute",
+    top: "-12px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    border: "7px solid #00B3B3",
+    borderRadius: "50%",
+    width: "230px",
+    height: "230px",
+    marginTop: "5px",
+    boxShadow: "0px 15px 20px rgba(0, 0, 179, 0.1)",
+    strokeDashoffset: "100",
+  };
+
   return (
     <div className="main" id="main">
       <div className="shift-time">
@@ -41,6 +56,7 @@ const ShiftPage = () => {
         <span className="shift-time--end">9:30</span>
       </div>
       <div className="shift-chart">
+        <div className="pseudo-chart" style={pseudoChart}></div>
         <div className="span-container">
           <span className="status chart-span">ongoing</span>
           <span className="time-passed chart-span">{shiftTime}</span>

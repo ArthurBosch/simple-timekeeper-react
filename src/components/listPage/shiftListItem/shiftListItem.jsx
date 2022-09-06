@@ -7,7 +7,7 @@ const ShiftListItem = ({ props, toggleShiftInfoFunc }) => {
   const day = new Intl.DateTimeFormat("en-US", options).format(baseDate);
   // const timeStartToDisplay = new Date(startTime).toLocaleTimeString();
   const timeStartToDisplay = baseDate.toString().slice(16, 21);
-  const timeEndToDisplay = baseDate.toString().slice(16, 21);
+  const timeEndToDisplay = new Date(endTime).toString().slice(16, 21);
 
   return (
     <div
