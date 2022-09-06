@@ -1,7 +1,16 @@
 import "./homeMain.css";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AppDataContext } from "../../../App";
 
 const HomeMain = () => {
+  const { createNewShift, toggleShiftIsActive } = useContext(AppDataContext);
+
+  const runShift = () => {
+    createNewShift();
+    toggleShiftIsActive(true);
+  };
+
   return (
     <div className="main" id="id">
       <div className="preset-container">
@@ -21,8 +30,15 @@ const HomeMain = () => {
           </option>
         </select>
       </div>
-      <Link to="/shift" className="start-shift-link" href="shift-started.html">
-        <button className="start-shift-button">Start Shift</button>
+      <Link to="/shift" className="start-shift-link">
+        <button
+          className="start-shift-button"
+          onClick={() => {
+            runShift();
+          }}
+        >
+          Start Shift
+        </button>
       </Link>
     </div>
   );

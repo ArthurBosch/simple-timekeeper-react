@@ -2,11 +2,11 @@ import "./homePage.css";
 import HomeFooter from "./homeFooter";
 import HomeMain from "./homeMain";
 import { useState, useContext, useEffect } from "react";
-import { AppContext } from "../../App";
+import { AppUIContext } from "../../App";
 
 const HomePage = ({}) => {
   const [shiftInfo, toggleShiftInfo] = useState(false);
-  const { changePageName } = useContext(AppContext);
+  const { changePageName } = useContext(AppUIContext);
   useEffect(() => {
     changePageName("Start Shift");
   });
