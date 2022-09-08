@@ -24,9 +24,11 @@ const ListPage = () => {
   };
 
   //DATA
+
   const { data } = useContext(AppDataContext);
+  const [shiftsData, updateShiftsData] = useState(data);
   const renderShifts = () => {
-    if (data) {
+    if (shiftsData) {
       return data.map((shift) => {
         return (
           <ShiftListItem
