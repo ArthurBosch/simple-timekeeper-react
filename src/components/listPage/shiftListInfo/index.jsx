@@ -1,6 +1,6 @@
 import "./shiftListInfo.css";
 
-const ShiftListInfo = ({ shiftData }) => {
+const ShiftListInfo = ({ shiftData, shiftInfo }) => {
   if (shiftData) {
     const { startTime, endTime } = shiftData;
     const baseDate = new Date(startTime);
@@ -16,7 +16,10 @@ const ShiftListInfo = ({ shiftData }) => {
     const workingTime = new Date(endTime).getTime() - baseDate.getTime();
     const workingHours = new Date(workingTime).toISOString().slice(11, 16);
     return (
-      <div className="info-container">
+      <div
+        className="info-container"
+        style={shiftInfo ? { bottom: 0 } : { bottom: "-30vh" }}
+      >
         <div className="info-container--time">
           <span className="info-container--time-start">
             {timeStartToDisplay}

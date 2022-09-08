@@ -22,7 +22,6 @@ function App() {
   //DATA STATE
 
   const [data, setData] = useState();
-  // const [dataFlag, triggerFlag] = useState(false);
 
   useEffect(() => {
     fetch(`${PORT}/shifts`)
@@ -66,7 +65,6 @@ function App() {
     setActiveShift(newShift);
     setData([...data, newShift]);
     localStorage.setItem("activeShift", JSON.stringify(newShift));
-    // triggerFlag(true);
 
     fetch(`${PORT}/shifts`, {
       method: "POST",
@@ -99,7 +97,6 @@ function App() {
     setData(newData);
     setActiveShift(null);
     localStorage.removeItem("activeShift");
-    // triggerFlag(true);
   };
 
   //UI STATE

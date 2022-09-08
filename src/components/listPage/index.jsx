@@ -18,12 +18,12 @@ const ListPage = () => {
   }, []);
 
   const toggleShiftInfoFunc = (singleShiftData) => {
-    if (shiftInfo) {
+    if (shiftData && singleShiftData.id === shiftData.id && shiftInfo) {
       toggleShiftInfo(false);
     } else {
       setShiftData(singleShiftData);
-      console.log(singleShiftData);
       toggleShiftInfo(true);
+      console.log(singleShiftData.id);
     }
   };
 
@@ -64,7 +64,7 @@ const ListPage = () => {
         </button>
       </div>
       <div className="shift-list">{renderShifts()}</div>
-      {shiftInfo && <ShiftListInfo shiftData={shiftData} />}
+      <ShiftListInfo shiftData={shiftData} shiftInfo={shiftInfo} />
     </div>
   );
 };

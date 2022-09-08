@@ -11,6 +11,7 @@ const ShiftListItem = ({ props, toggleShiftInfoFunc }) => {
   return (
     <div
       className="shift-list--item"
+      id="shiftListItem"
       onClick={() => {
         toggleShiftInfoFunc(props);
       }}
