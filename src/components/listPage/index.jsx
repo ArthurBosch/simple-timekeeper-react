@@ -6,19 +6,23 @@ import "./listPage.css";
 import plus from "../../svg/plus.svg";
 import ShiftListItem from "./shiftListItem/shiftListItem";
 import ShiftListInfo from "./shiftListInfo";
+import { PORT } from "../../vars.js";
 
 const ListPage = () => {
   //UI STATE
   const [shiftInfo, toggleShiftInfo] = useState(true);
   const { changePageName } = useContext(AppUIContext);
+  const [shiftData, setShiftData] = useState(null);
   useEffect(() => {
     changePageName("My Shifts");
   }, []);
 
-  const toggleShiftInfoFunc = () => {
+  const toggleShiftInfoFunc = (singleShiftData) => {
     if (shiftInfo) {
       toggleShiftInfo(false);
     } else {
+      setShiftData(singleShiftData);
+      console.log(singleShiftData);
       toggleShiftInfo(true);
     }
   };
@@ -27,9 +31,19 @@ const ListPage = () => {
 
   const { data } = useContext(AppDataContext);
   const [shiftsData, updateShiftsData] = useState(data);
+
+  useEffect(() => {
+    updateShiftsData(data);
+    if (!shiftsData) {
+      fetch(`${PORT}/shifts`)
+        .then((res) => res.json())
+        .then((data) => updateShiftsData(data.reverse()));
+    }
+  }, []);
+
   const renderShifts = () => {
     if (shiftsData) {
-      return data.map((shift) => {
+      return shiftsData.map((shift) => {
         return (
           <ShiftListItem
             props={shift}
@@ -50,7 +64,7 @@ const ListPage = () => {
         </button>
       </div>
       <div className="shift-list">{renderShifts()}</div>
-      {shiftInfo && <ShiftListInfo />}
+      {shiftInfo && <ShiftListInfo shiftData={shiftData} />}
     </div>
   );
 };
