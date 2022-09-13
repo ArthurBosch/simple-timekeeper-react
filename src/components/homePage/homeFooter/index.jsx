@@ -1,9 +1,47 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { AppDataContext } from "../../../App";
 import dobleChevron from "../../../svg/double-chevron.svg";
 
 import "./homeFooter.css";
 
 const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
+  const { data } = useContext(AppDataContext);
+
+  const countWeeklyHours = () => {
+    if (data) {
+      const lastSeven = data.slice(-7); //get the last 7 days
+      const weekdays = lastSeven.map(
+        (shift) => new Array(new Date(shift.startTime).toString().split(" "))
+      );
+      const lastSunday = weekdays.find((day) => day[0][0] === "Sun");
+      const lastSundayDate = parseInt(lastSunday[0][2]);
+      const lastSundayDateObject = lastSeven.find(
+        (shift) => new Date(shift.startTime).getDate() === lastSundayDate
+      );
+      const lastSundayDateIndex = lastSeven.findIndex(
+        (shift) => shift === lastSundayDateObject
+      );
+      const daysAfterSunday = lastSeven.slice(0, lastSundayDateIndex + 1);
+      const weekleyHours = daysAfterSunday.map((shift) => {
+        const delta =
+          new Date(shift.endTime).getTime() -
+          new Date(shift.startTime).getTime();
+        return delta;
+      });
+      const weekleyHoursCount = weekleyHours.reduce(
+        (partialSum, a) => partialSum + a,
+        0
+      );
+      const milisecondsToHours = new Date(weekleyHoursCount)
+        .toISOString()
+        .slice(11, 16);
+
+      return milisecondsToHours;
+    }
+  };
+
+  countWeeklyHours();
   return (
     <div
       className="footer"
@@ -32,7 +70,7 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
             </div>
             <div className="shift-info--stats">
               <div className="stats-card">
-                <h3>34</h3>
+                <h3>{countWeeklyHours()}</h3>
                 <span>hours</span>
               </div>
               <div className="stats-card">
