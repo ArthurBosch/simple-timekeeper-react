@@ -10,10 +10,13 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
   const { data } = useContext(AppDataContext);
 
   const [weeklyHours, setWeeklyHours] = useState();
+  const [averageHours, setAverageHours] = useState();
+  const [weeklyEarnings, setWeeklyEarnings] = useState();
 
-  const countWeeklyHours = () => {
+  const getThisWeek = () => {
+    let daysAfterSunday = "";
     if (data) {
-      const lastSeven = data.slice(-7); //get the last 7 days
+      const lastSeven = data.slice(0, 7);
       const weekdays = lastSeven.map(
         (shift) => new Array(new Date(shift.startTime).toString().split(" "))
       );
@@ -25,33 +28,71 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
       const lastSundayDateIndex = lastSeven.findIndex(
         (shift) => shift === lastSundayDateObject
       );
-      const daysAfterSunday = lastSeven.slice(0, lastSundayDateIndex + 1);
-      const weeklyMls = daysAfterSunday.map((shift) => {
-        const delta =
-          new Date(shift.endTime).getTime() -
-          new Date(shift.startTime).getTime();
-        return delta;
-      });
-      const weeklyMlsCount = weeklyMls.reduce(
+      daysAfterSunday = lastSeven.slice(0, lastSundayDateIndex + 1);
+    }
+
+    return daysAfterSunday;
+  };
+
+  const shiftsToMilliseconds = (days) => {
+    const milliseconds = days.map((shift) => {
+      const delta =
+        new Date(shift.endTime).getTime() - new Date(shift.startTime).getTime();
+      return delta;
+    });
+    return milliseconds;
+  };
+
+  const milisecondsToHours = (milliseconds) => {
+    const milsToMins = milliseconds / 60000;
+    const hours = Math.floor(milsToMins / 60)
+      .toString()
+      .padStart(2, "0");
+    const minutes = Math.floor(milsToMins % 60)
+      .toString()
+      .padStart(2, "0");
+    return `${hours}:${minutes}`;
+  };
+
+  const countWeeklyMiliseconds = () => {
+    if (data) {
+      const daysAfterSunday = getThisWeek();
+      const miliseconds = shiftsToMilliseconds(daysAfterSunday);
+      const weeklyMlsCount = miliseconds.reduce(
         (partialSum, a) => partialSum + a,
         0
       );
-      const milisecondsToHours = () => {
-        const milsToMins = weeklyMlsCount / 60000;
-        const hours = Math.floor(milsToMins / 60)
-          .toString()
-          .padStart(2, "0");
-        const minutes = Math.floor(milsToMins % 60)
-          .toString()
-          .padStart(2, "0");
-        return `${hours}:${minutes}`;
-      };
-      setWeeklyHours(milisecondsToHours());
+      return weeklyMlsCount;
+    }
+  };
+
+  const countWeeklyHours = () => {
+    return milisecondsToHours(countWeeklyMiliseconds());
+  };
+
+  const countAverageDayHours = () => {
+    if (data) {
+      const days = getThisWeek().length;
+      const miliseconds = countWeeklyMiliseconds();
+      const averageMiliseconds = miliseconds / days;
+      const hours = milisecondsToHours(averageMiliseconds);
+      return hours;
+    }
+  };
+
+  const countWeeklyEarningsDemo = () => {
+    if (data) {
+      const baseWage = 47;
+      const milisecondsThisWeek = countWeeklyMiliseconds();
+      const hoursThisWeek = milisecondsThisWeek / 1000 / 60 / 60;
+      return `${parseInt(hoursThisWeek * baseWage)} ₪`;
     }
   };
 
   useEffect(() => {
-    countWeeklyHours();
+    setWeeklyHours(countWeeklyHours());
+    setAverageHours(countAverageDayHours());
+    setWeeklyEarnings(countWeeklyEarningsDemo());
   }, [data]);
 
   return (
@@ -86,11 +127,11 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
                 <span>hours</span>
               </div>
               <div className="stats-card">
-                <h3>$543</h3>
+                <h3>{weeklyEarnings}</h3>
                 <span>earned</span>
               </div>
               <div className="stats-card">
-                <h3>9.4</h3>
+                <h3>{averageHours}</h3>
                 <span>average</span>
               </div>
             </div>
