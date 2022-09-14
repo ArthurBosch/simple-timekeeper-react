@@ -1,5 +1,6 @@
 const ShiftListItem = ({ props, toggleShiftInfoFunc }) => {
-  const { startTime, endTime } = props;
+  let { startTime, endTime } = props;
+  if (!endTime) endTime = new Date().toISOString();
 
   const baseDate = new Date(startTime);
   const options = { weekday: "short" };

@@ -2,7 +2,8 @@ import "./shiftListInfo.css";
 
 const ShiftListInfo = ({ shiftData, shiftInfo }) => {
   if (shiftData) {
-    const { startTime, endTime } = shiftData;
+    let { startTime, endTime } = shiftData;
+    if (!endTime) endTime = new Date().toISOString();
     const baseDate = new Date(startTime);
     const optionsDay = { weekday: "long" };
     const optionsMonth = { month: "short" };

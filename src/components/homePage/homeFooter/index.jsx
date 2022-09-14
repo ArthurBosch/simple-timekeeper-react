@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { AppDataContext } from "../../../App";
@@ -7,6 +8,8 @@ import "./homeFooter.css";
 
 const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
   const { data } = useContext(AppDataContext);
+
+  const [weeklyHours, setWeeklyHours] = useState();
 
   const countWeeklyHours = () => {
     if (data) {
@@ -23,25 +26,34 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
         (shift) => shift === lastSundayDateObject
       );
       const daysAfterSunday = lastSeven.slice(0, lastSundayDateIndex + 1);
-      const weekleyHours = daysAfterSunday.map((shift) => {
+      const weeklyMls = daysAfterSunday.map((shift) => {
         const delta =
           new Date(shift.endTime).getTime() -
           new Date(shift.startTime).getTime();
         return delta;
       });
-      const weekleyHoursCount = weekleyHours.reduce(
+      const weeklyMlsCount = weeklyMls.reduce(
         (partialSum, a) => partialSum + a,
         0
       );
-      const milisecondsToHours = new Date(weekleyHoursCount)
-        .toISOString()
-        .slice(11, 16);
-
-      return milisecondsToHours;
+      const milisecondsToHours = () => {
+        const milsToMins = weeklyMlsCount / 60000;
+        const hours = Math.floor(milsToMins / 60)
+          .toString()
+          .padStart(2, "0");
+        const minutes = Math.floor(milsToMins % 60)
+          .toString()
+          .padStart(2, "0");
+        return `${hours}:${minutes}`;
+      };
+      setWeeklyHours(milisecondsToHours());
     }
   };
 
-  countWeeklyHours();
+  useEffect(() => {
+    countWeeklyHours();
+  }, [data]);
+
   return (
     <div
       className="footer"
@@ -70,7 +82,7 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
             </div>
             <div className="shift-info--stats">
               <div className="stats-card">
-                <h3>{countWeeklyHours()}</h3>
+                <h3>{weeklyHours}</h3>
                 <span>hours</span>
               </div>
               <div className="stats-card">
