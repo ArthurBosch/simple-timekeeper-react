@@ -23,7 +23,6 @@ const ListPage = () => {
     } else {
       setShiftData(singleShiftData);
       toggleShiftInfo(true);
-      console.log(singleShiftData.id);
     }
   };
 
@@ -48,6 +47,7 @@ const ListPage = () => {
           <ShiftListItem
             props={shift}
             toggleShiftInfoFunc={toggleShiftInfoFunc}
+            shiftInfo={shiftInfo}
             key={shift.id}
           />
         );

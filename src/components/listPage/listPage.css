@@ -24,6 +24,17 @@
   margin-top: 10px;
 }
 
+.shift-list--item-active {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 60px;
+  justify-content: space-between;
+  border: #00b3b3 solid 1px;
+  border-radius: 5px;
+  padding: 0 10px 0 10px;
+  margin-top: 10px;
+}
+
 .date-number {
   margin: 0;
   display: inline;
