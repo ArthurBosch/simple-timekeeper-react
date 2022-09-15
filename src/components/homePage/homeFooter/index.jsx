@@ -4,6 +4,12 @@ import { useContext } from "react";
 import { AppDataContext } from "../../../App";
 import dobleChevron from "../../../svg/double-chevron.svg";
 
+import {
+  countWeeklyHours,
+  countAverageDayHours,
+  countWeeklyEarningsDemo,
+} from "../../../methods/methods";
+
 import "./homeFooter.css";
 
 const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
@@ -13,86 +19,12 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
   const [averageHours, setAverageHours] = useState();
   const [weeklyEarnings, setWeeklyEarnings] = useState();
 
-  const getThisWeek = () => {
-    let daysAfterSunday = "";
-    if (data) {
-      const lastSeven = data.slice(0, 7);
-      const weekdays = lastSeven.map(
-        (shift) => new Array(new Date(shift.startTime).toString().split(" "))
-      );
-      const lastSunday = weekdays.find((day) => day[0][0] === "Sun");
-      const lastSundayDate = parseInt(lastSunday[0][2]);
-      const lastSundayDateObject = lastSeven.find(
-        (shift) => new Date(shift.startTime).getDate() === lastSundayDate
-      );
-      const lastSundayDateIndex = lastSeven.findIndex(
-        (shift) => shift === lastSundayDateObject
-      );
-      daysAfterSunday = lastSeven.slice(0, lastSundayDateIndex + 1);
-    }
-
-    return daysAfterSunday;
-  };
-
-  const shiftsToMilliseconds = (days) => {
-    const milliseconds = days.map((shift) => {
-      const delta =
-        new Date(shift.endTime).getTime() - new Date(shift.startTime).getTime();
-      return delta;
-    });
-    return milliseconds;
-  };
-
-  const milisecondsToHours = (milliseconds) => {
-    const milsToMins = milliseconds / 60000;
-    const hours = Math.floor(milsToMins / 60)
-      .toString()
-      .padStart(2, "0");
-    const minutes = Math.floor(milsToMins % 60)
-      .toString()
-      .padStart(2, "0");
-    return `${hours}:${minutes}`;
-  };
-
-  const countWeeklyMiliseconds = () => {
-    if (data) {
-      const daysAfterSunday = getThisWeek();
-      const miliseconds = shiftsToMilliseconds(daysAfterSunday);
-      const weeklyMlsCount = miliseconds.reduce(
-        (partialSum, a) => partialSum + a,
-        0
-      );
-      return weeklyMlsCount;
-    }
-  };
-
-  const countWeeklyHours = () => {
-    return milisecondsToHours(countWeeklyMiliseconds());
-  };
-
-  const countAverageDayHours = () => {
-    if (data) {
-      const days = getThisWeek().length;
-      const miliseconds = countWeeklyMiliseconds();
-      const averageMiliseconds = miliseconds / days;
-      const hours = milisecondsToHours(averageMiliseconds);
-      return hours;
-    }
-  };
-
-  const countWeeklyEarningsDemo = () => {
-    if (data) {
-      const baseWage = 47;
-      const milisecondsThisWeek = countWeeklyMiliseconds();
-      const hoursThisWeek = milisecondsThisWeek / 1000 / 60 / 60;
-      return `${parseInt(hoursThisWeek * baseWage)} ₪`;
-    }
-  };
-
   useEffect(() => {
-    setWeeklyHours(countWeeklyHours());
-    setAverageHours(countAverageDayHours());
-    setWeeklyEarnings(countWeeklyEarningsDemo());
+    if (data) {
+      setWeeklyHours(countWeeklyHours(data));
+      setAverageHours(countAverageDayHours(data));
+      setWeeklyEarnings(countWeeklyEarningsDemo(data));
+    }
   }, [data]);
 
   return (

@@ -22,6 +22,7 @@
   border-radius: 5px;
   padding: 0 10px 0 10px;
   margin-top: 10px;
+  transition: height ease-in 0.2s;
 }
 
 .shift-list--item-active {
@@ -29,10 +30,12 @@
   grid-template-columns: 1fr 1fr 1fr;
   height: 60px;
   justify-content: space-between;
-  border: #00b3b3 solid 1px;
+  border: #00b3b3 solid 2px;
   border-radius: 5px;
   padding: 0 10px 0 10px;
   margin-top: 10px;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
+  transition: height ease-in 0.2s;
 }
 
 .date-number {

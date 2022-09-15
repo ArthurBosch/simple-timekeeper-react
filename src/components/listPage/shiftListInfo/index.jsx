@@ -1,4 +1,5 @@
 import "./shiftListInfo.css";
+import { countDayEarnings } from "../../../methods/methods";
 
 const ShiftListInfo = ({ shiftData, shiftInfo }) => {
   if (shiftData) {
@@ -16,6 +17,8 @@ const ShiftListInfo = ({ shiftData, shiftInfo }) => {
     const timeEndToDisplay = new Date(endTime).toString().slice(16, 21);
     const workingTime = new Date(endTime).getTime() - baseDate.getTime();
     const workingHours = new Date(workingTime).toISOString().slice(11, 16);
+
+    const earningsToDisplay = countDayEarnings(shiftData);
     return (
       <div
         className="info-container"
@@ -39,7 +42,9 @@ const ShiftListInfo = ({ shiftData, shiftInfo }) => {
           <span className="info-container--hours-span">hours</span>
         </div>
         <div className="info-container--earned">
-          <span className="info-container--earned-earned">$315</span>
+          <span className="info-container--earned-earned">
+            {earningsToDisplay}
+          </span>
           <span className="info-container--earned-span">earned</span>
         </div>
         <div className="info-container--brake">
