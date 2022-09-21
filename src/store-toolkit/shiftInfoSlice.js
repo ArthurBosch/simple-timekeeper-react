@@ -13,7 +13,6 @@ const shiftInfoSlice = createSlice({
         state.activeShiftInfo.id === action.payload.id
       ) {
         state.shiftInfoStatus = false;
-        // state.activeShiftInfo = null;
       } else {
         state.shiftInfoStatus = true;
         state.activeShiftInfo = action.payload;

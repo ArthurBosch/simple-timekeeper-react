@@ -6,13 +6,16 @@ import { AppUIContext } from "../../App";
 import { useSelector, useDispatch } from "react-redux";
 import { checkLocalActiveShift } from "../../store-toolkit/shiftSlice";
 import ShiftPage from "../shiftPage";
-
+import Loader from "../../skeleton/loader";
 const HomePage = ({}) => {
   const [shiftInfo, toggleShiftInfo] = useState(false);
   const { changePageName } = useContext(AppUIContext);
   useEffect(() => {
     changePageName("Start Shift");
   });
+
+  const { status } = useSelector((state) => state.shifts);
+  console.log(status);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,6 +25,7 @@ const HomePage = ({}) => {
 
   return (
     <>
+      {status === "loading" && <Loader />}
       {activeShiftStatus === "active" && <ShiftPage />}
       {activeShiftStatus !== "active" && (
         <div

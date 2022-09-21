@@ -85,6 +85,7 @@ const shiftsSlice = createSlice({
   initialState: {
     shifts: [],
     fetchStatus: null,
+    status: null,
     error: null,
     activeShiftStatus: null,
     activeShift: null,
@@ -115,22 +116,33 @@ const shiftsSlice = createSlice({
   },
   extraReducers: {
     [fetchShifts.pending]: (state) => {
-      state.status = "loadiing";
+      state.status = "loading";
       state.error = null;
     },
     [fetchShifts.fulfilled]: (state, action) => {
       state.status = "resolved";
       state.shifts = action.payload;
     },
-    [fetchShifts.rejected]: setError,
     [setNewShift.pending]: (state) => {
-      state.activeShiftStatus = "pending";
+      state.activeShiftStatus = "loading";
+      state.status = "loading";
       state.error = null;
     },
     [setNewShift.fulfilled]: (state) => {
       state.activeShiftStatus = "active";
+      state.status = "resolved";
       state.error = null;
     },
+    [finishShift.pending]: (state) => {
+      state.status = "loading";
+      state.error = null;
+    },
+    [finishShift.fulfilled]: (state) => {
+      state.status = "resolved";
+      state.error = null;
+    },
+    [fetchShifts.rejected]: setError,
+    [finishShift.rejected]: setError,
     [setNewShift.rejected]: setError,
   },
 });

@@ -10,6 +10,7 @@ import { createContext } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchShifts } from "./store-toolkit/shiftSlice";
+import { useSelector } from "react-redux";
 export const AppUIContext = createContext(null);
 
 function App() {

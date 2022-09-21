@@ -1,6 +1,6 @@
 .info-container {
   display: hidden;
-  position: absolute;
+  position: fixed;
   bottom: -30vh;
   width: 100%;
   box-sizing: border-box;
