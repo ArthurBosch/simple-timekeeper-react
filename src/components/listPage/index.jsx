@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { AppUIContext } from "../../App";
 
 import "./listPage.css";
@@ -17,9 +17,14 @@ const ListPage = () => {
 
   //DATA
 
-  const { status, error } = useSelector((state) => state.shifts);
+  const { status } = useSelector((state) => state.shifts);
 
-  const shifts = useSelector((state) => state.shifts.shifts);
+  const shiftsState = useSelector((state) => state.shifts.shifts);
+  const [shifts, setShifts] = useState(shiftsState);
+  useEffect(() => {
+    setShifts(shiftsState);
+    console.log("changed");
+  }, []);
 
   const renderShifts = () => {
     if (shifts) {

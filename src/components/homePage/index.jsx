@@ -15,13 +15,16 @@ const HomePage = ({}) => {
   });
 
   const { status } = useSelector((state) => state.shifts);
-  console.log(status);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(checkLocalActiveShift());
   }, []);
   const { activeShiftStatus } = useSelector((state) => state.shifts);
+
+  window.addEventListener("drag", (e) => {
+    console.log(e.target);
+  });
 
   return (
     <>

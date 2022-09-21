@@ -78,11 +78,16 @@ export const countAverageDayHours = (data) => {
 export const countWeeklyEarningsDemo = (data, baseWage = 47) => {
   const milisecondsThisWeek = countWeeklyMiliseconds(data);
   const hoursThisWeek = milisecondsThisWeek / 1000 / 60 / 60;
-  return `${parseInt(hoursThisWeek * baseWage)} ₪`;
+  return `${Math.floor(hoursThisWeek * baseWage)} ₪`;
 };
 
 export const countDayEarnings = (data, baseWage = 47) => {
   const milisecondsThisDay = countDayMilliseconds(data);
   const hoursThisDay = milisecondsThisDay / 1000 / 60 / 60;
-  return `${parseInt(hoursThisDay * baseWage)} ₪`;
+  return `${Math.floor(hoursThisDay * baseWage)} ₪`;
+};
+
+export const countEarningsByMiliSeconds = (miliseconds, baseWage = 47) => {
+  const hoursThisDay = miliseconds / 1000 / 60 / 60;
+  return `${Math.floor(hoursThisDay * baseWage)} ₪`;
 };

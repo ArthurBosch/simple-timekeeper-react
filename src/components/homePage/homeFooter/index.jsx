@@ -17,7 +17,11 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
   const [averageHours, setAverageHours] = useState();
   const [weeklyEarnings, setWeeklyEarnings] = useState();
 
-  const data = useSelector((state) => state.shifts.shifts);
+  const dataState = useSelector((state) => state.shifts.shifts);
+  const [data, setData] = useState(dataState);
+  useEffect(() => {
+    setData(dataState);
+  });
 
   useEffect(() => {
     if (data.length > 0) {

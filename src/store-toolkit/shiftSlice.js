@@ -29,8 +29,6 @@ export const setNewShift = createAsyncThunk(
       endTime: "",
     };
 
-    console.log(newShift);
-
     try {
       const response = await fetch(`${PORT}/shifts`, {
         method: "POST",
@@ -39,8 +37,6 @@ export const setNewShift = createAsyncThunk(
         },
         body: JSON.stringify(newShift),
       });
-
-      console.log(response);
 
       if (!response.ok) {
         throw new Error("Unable to start shift");

@@ -4,6 +4,10 @@ import { AppUIContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { finishShift } from "../../store-toolkit/shiftSlice";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  countEarningsByMiliSeconds,
+  milisecondsToHours,
+} from "../../methods/methods";
 
 const ShiftPage = () => {
   //DATA
@@ -24,14 +28,20 @@ const ShiftPage = () => {
   };
 
   const [shiftTime, setShiftTime] = useState(checkLocalTime());
+  const [earned, setEarned] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     setInterval(() => {
       const delta = Date.now() - new Date(activeShift.startTime).getTime();
-      const time = new Date(delta).toISOString().slice(11, 16);
-      localStorage.setItem("shiftTime", JSON.stringify(time));
+      const time = milisecondsToHours(delta);
+      const earned = countEarningsByMiliSeconds(delta);
+      if (earned < 1) {
+        setEarned(1);
+      } else {
+        setEarned(earned);
+      }
       setShiftTime(time);
     }, 1000);
   });
@@ -62,7 +72,7 @@ const ShiftPage = () => {
         <div className="span-container">
           <span className="status chart-span">ongoing</span>
           <span className="time-passed chart-span">{shiftTime}</span>
-          <span className="earned chart-span">$91.24</span>
+          <span className="earned chart-span">{earned}</span>
         </div>
       </div>
       <div className="shift-controls">
