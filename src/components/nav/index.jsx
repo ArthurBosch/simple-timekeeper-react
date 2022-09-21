@@ -5,10 +5,13 @@ import stats from "../../svg/stats.svg";
 import settings from "../../svg/settings.svg";
 
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AppUIContext } from "../../App";
 
 import "./nav.css";
 
-const Navigation = ({ menuState, toggleMenuFunc }) => {
+const Navigation = () => {
+  const { menuState, toggleMenuFunc } = useContext(AppUIContext);
   return (
     <div className="overlay-container">
       <div

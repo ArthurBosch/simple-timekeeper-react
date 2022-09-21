@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
-import { AppDataContext } from "../../../App";
 import dobleChevron from "../../../svg/double-chevron.svg";
+import { useSelector } from "react-redux";
 
 import {
   countWeeklyHours,
@@ -13,14 +13,14 @@ import {
 import "./homeFooter.css";
 
 const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
-  const { data } = useContext(AppDataContext);
-
   const [weeklyHours, setWeeklyHours] = useState();
   const [averageHours, setAverageHours] = useState();
   const [weeklyEarnings, setWeeklyEarnings] = useState();
 
+  const data = useSelector((state) => state.shifts.shifts);
+
   useEffect(() => {
-    if (data) {
+    if (data.length > 0) {
       setWeeklyHours(countWeeklyHours(data));
       setAverageHours(countAverageDayHours(data));
       setWeeklyEarnings(countWeeklyEarningsDemo(data));

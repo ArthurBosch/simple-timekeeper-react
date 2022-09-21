@@ -1,14 +1,12 @@
 import "./homeMain.css";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { AppDataContext } from "../../../App";
+import { setNewShift } from "../../../store-toolkit/shiftSlice";
+import { useDispatch } from "react-redux";
 
 const HomeMain = () => {
-  const { createNewShift, toggleShiftIsActive } = useContext(AppDataContext);
+  const dispatch = useDispatch();
 
   const runShift = () => {
-    createNewShift();
-    toggleShiftIsActive(true);
+    dispatch(setNewShift());
   };
 
   return (
@@ -30,16 +28,14 @@ const HomeMain = () => {
           </option>
         </select>
       </div>
-      <Link to="/shift" className="start-shift-link">
-        <button
-          className="start-shift-button"
-          onClick={() => {
-            runShift();
-          }}
-        >
-          Start Shift
-        </button>
-      </Link>
+      <button
+        className="start-shift-button"
+        onClick={() => {
+          runShift();
+        }}
+      >
+        Start Shift
+      </button>
     </div>
   );
 };

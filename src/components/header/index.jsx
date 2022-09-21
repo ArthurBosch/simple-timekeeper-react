@@ -1,7 +1,10 @@
+import { useContext } from "react";
+import { AppUIContext } from "../../App";
 import menu from "../../svg/menu.svg";
 import "./header.css";
 
-const Header = ({ toggleMenuFunc, pageName }) => {
+const Header = () => {
+  const { toggleMenuFunc, pageName } = useContext(AppUIContext);
   return (
     <div className="header">
       <div className="header--inner-container">

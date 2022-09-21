@@ -1,6 +1,7 @@
 .info-container {
+  display: hidden;
   position: absolute;
-  bottom: 0;
+  bottom: -30vh;
   width: 100%;
   box-sizing: border-box;
   max-width: 600px;
@@ -16,7 +17,11 @@
   background: linear-gradient(110.99deg, #001f7d 0%, #0000b3 100%);
   border-radius: 15px 15px 0px 0px;
 
-  transition: all 0.2s ease-in;
+  transition: bottom 0.2s ease-in;
+}
+
+.info-container--active {
+  bottom: 0px;
 }
 
 .info-container--time {

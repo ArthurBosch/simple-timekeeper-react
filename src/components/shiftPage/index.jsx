@@ -1,13 +1,13 @@
 import "./shiftPage.css";
 import { useContext, useEffect, useState } from "react";
-import { AppUIContext, AppDataContext } from "../../App";
+import { AppUIContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import { finishShift } from "../../store-toolkit/shiftSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const ShiftPage = () => {
-  const navigate = useNavigate();
   //DATA
-  const { activeShift, finishShift, toggleShiftIsActive } =
-    useContext(AppDataContext);
+  const { activeShift } = useSelector((state) => state.shifts);
 
   //UI
   const { changePageName } = useContext(AppUIContext);
@@ -24,6 +24,8 @@ const ShiftPage = () => {
   };
 
   const [shiftTime, setShiftTime] = useState(checkLocalTime());
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setInterval(() => {
@@ -68,9 +70,8 @@ const ShiftPage = () => {
         <button
           className="finish-button"
           onClick={() => {
-            finishShift();
+            dispatch(finishShift(activeShift));
             navigate("/");
-            toggleShiftIsActive(false);
           }}
         >
           Finish

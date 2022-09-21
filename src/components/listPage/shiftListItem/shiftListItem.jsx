@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleShiftInfo } from "../../../store-toolkit/shiftInfoSlice";
 
-const ShiftListItem = ({ props, toggleShiftInfoFunc, shiftInfo }) => {
-  const [active, setActive] = useState(false);
-
+const ShiftListItem = ({ props }) => {
+  const container = useRef(null);
+  const { shiftInfoStatus } = useSelector((state) => state.shiftInfo);
+  const dispatch = useDispatch();
   let { startTime, endTime } = props;
   if (!endTime) endTime = new Date().toISOString();
-
   const baseDate = new Date(startTime);
   const options = { weekday: "short" };
   const num = baseDate.getDate();
@@ -14,22 +16,34 @@ const ShiftListItem = ({ props, toggleShiftInfoFunc, shiftInfo }) => {
   const timeEndToDisplay = new Date(endTime).toString().slice(16, 21);
 
   const makeActive = (e) => {
-    const activeNow = document.querySelector(".shift-list--item-active");
-    if (activeNow) activeNow.className = "shift-list--item";
-    if (!active) {
-      e.target.closest("#shiftListItem").className = "shift-list--item-active";
-      setActive(true);
-    } else {
-      setActive(false);
+    const prev = document.querySelector(".shift-list--item-active");
+    if (!prev) {
+      container.current.className = "shift-list--item shift-list--item-active";
+      return;
+    }
+
+    if (
+      prev &&
+      e.target.closest("#shiftListItem").className === prev.className
+    ) {
+      prev.className = "shift-list--item";
+      container.current.className = "shift-list--item";
+      return;
+    }
+
+    if (prev) {
+      prev.className = "shift-list--item";
+      container.current.className = "shift-list--item shift-list--item-active";
     }
   };
 
   return (
     <div
       className="shift-list--item"
+      ref={container}
       id="shiftListItem"
       onClick={(e) => {
-        toggleShiftInfoFunc(props);
+        dispatch(toggleShiftInfo(props));
         makeActive(e);
       }}
     >
