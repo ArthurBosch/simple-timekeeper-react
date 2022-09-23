@@ -1,10 +1,9 @@
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toggleShiftInfo } from "../../../store-toolkit/shiftInfoSlice";
 
-const ShiftListItem = ({ props }) => {
+const ShiftListItem = ({ props, scrollToBottom }) => {
   const container = useRef(null);
-  const { shiftInfoStatus } = useSelector((state) => state.shiftInfo);
   const dispatch = useDispatch();
   let { startTime, endTime } = props;
   if (!endTime) endTime = new Date().toISOString();
@@ -37,6 +36,12 @@ const ShiftListItem = ({ props }) => {
     }
   };
 
+  const scrollToBottomItem = () => {
+    if (scrollToBottom) {
+      return scrollToBottom();
+    }
+  };
+
   return (
     <div
       className="shift-list--item"
@@ -45,6 +50,7 @@ const ShiftListItem = ({ props }) => {
       onClick={(e) => {
         dispatch(toggleShiftInfo(props));
         makeActive(e);
+        scrollToBottomItem();
       }}
     >
       <div className="shift-list--date">

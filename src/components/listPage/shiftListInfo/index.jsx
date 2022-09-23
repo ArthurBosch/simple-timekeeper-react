@@ -1,6 +1,8 @@
 import "./shiftListInfo.css";
 import { countDayEarnings } from "../../../methods/methods";
 import { useSelector } from "react-redux";
+import edit from "../../../svg/edit.svg";
+import deleteIcon from "../../../svg/delete.svg";
 
 const ShiftListInfo = () => {
   const { activeShiftInfo, shiftInfoStatus } = useSelector(
@@ -39,6 +41,7 @@ const ShiftListInfo = () => {
           ? "info-container info-container--active"
           : "info-container"
       }
+      id="shiftInfo"
     >
       <div className="info-container--time">
         <span className="info-container--time-start">{timeStartToDisplay}</span>
@@ -64,6 +67,14 @@ const ShiftListInfo = () => {
       <div className="info-container--brake">
         <span className="info-container--brake-minutes">30</span>
         <span className="info-container--brake-span">min. brake</span>
+      </div>
+      <div className="info-container--controls-edit">
+        <button>
+          Edit Shift <img src={edit} className="edit-icon" />
+        </button>
+      </div>
+      <div className="info-container--controls-delete">
+        <button>Delete</button>
       </div>
     </div>
   );

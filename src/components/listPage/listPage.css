@@ -28,7 +28,7 @@
 
 .shift-list--item-active {
   height: 60px;
-  border: #00b3b3 solid 2px;
+  border: #00b3b3 solid 4px;
   border-radius: 5px;
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);
   transition: height ease-in 0.2s;

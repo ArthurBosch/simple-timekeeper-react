@@ -18,13 +18,13 @@ const ListPage = () => {
   //DATA
 
   const { status } = useSelector((state) => state.shifts);
+  const { shiftInfoStatus } = useSelector((state) => state.shiftInfo);
 
   const shiftsState = useSelector((state) => state.shifts.shifts);
   const [shifts, setShifts] = useState(shiftsState);
   useEffect(() => {
     setShifts(shiftsState);
-    console.log("changed");
-  }, []);
+  }, [shiftsState]);
 
   const renderShifts = () => {
     if (shifts) {
@@ -35,7 +35,13 @@ const ListPage = () => {
   };
 
   return (
-    <div className="list-page--container" id="list-container">
+    <div
+      className="list-page--container"
+      id="listContainer"
+      style={
+        shiftInfoStatus ? { marginBottom: "32vh" } : { marginBottom: "10px" }
+      }
+    >
       {status === "loading" && <ListSkeleton />}
       <div className="add-shift">
         <button className="add-shift--button">

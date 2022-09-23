@@ -64,8 +64,7 @@ const ShiftPage = () => {
   return (
     <div className="main" id="main">
       <div className="shift-time">
-        <span className="shift-time--start">{startTime}</span> -
-        <span className="shift-time--end">9:30</span>
+        <span className="shift-time--start">{startTime}</span>
       </div>
       <div className="shift-chart">
         <div className="pseudo-chart" style={pseudoChart}></div>
