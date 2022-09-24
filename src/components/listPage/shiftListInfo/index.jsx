@@ -1,13 +1,20 @@
 import "./shiftListInfo.css";
 import { countDayEarnings } from "../../../methods/methods";
+import { useDispatch } from "react-redux";
+import {
+  asyncDeleteShift,
+  asyncEditShift,
+} from "../../../store-toolkit/shiftSlice";
+import { toggleShiftInfo } from "../../../store-toolkit/shiftInfoSlice";
 import { useSelector } from "react-redux";
 import edit from "../../../svg/edit.svg";
-import deleteIcon from "../../../svg/delete.svg";
 
 const ShiftListInfo = () => {
   const { activeShiftInfo, shiftInfoStatus } = useSelector(
     (state) => state.shiftInfo
   );
+
+  const dispatch = useDispatch();
 
   let timeStartToDisplay = 0;
   let timeEndToDisplay = 0;
@@ -74,7 +81,14 @@ const ShiftListInfo = () => {
         </button>
       </div>
       <div className="info-container--controls-delete">
-        <button>Delete</button>
+        <button
+          onClick={() => {
+            dispatch(asyncDeleteShift(activeShiftInfo));
+            dispatch(toggleShiftInfo());
+          }}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );

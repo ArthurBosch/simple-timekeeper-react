@@ -71,6 +71,50 @@ export const finishShift = createAsyncThunk(
   }
 );
 
+export const asyncEditShift = createAsyncThunk(
+  "shifts/editShift",
+  async function (shift, { rejectWithValue, dispatch }) {
+    try {
+      const response = await fetch(`${PORT}/shifts/${shift.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(shift),
+      });
+      if (!response.ok) {
+        throw new Error("Unable to edit shift");
+      }
+      dispatch(editShift(shift));
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const asyncDeleteShift = createAsyncThunk(
+  "shifts/deleteShift",
+  async function (shift, { rejectWithValue, dispatch }) {
+    try {
+      const response = await fetch(`${PORT}/shifts/${shift.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(shift),
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to delete shift");
+      }
+
+      dispatch(deleteShift(shift));
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const setError = (state, action) => {
   state.status = "rejected";
   state.error = action.payload;
@@ -88,16 +132,16 @@ const shiftsSlice = createSlice({
   },
   reducers: {
     createNewShift(state, action) {
-      state.shifts.push(action.payload);
+      state.shifts.unshift(action.payload);
       state.activeShift = action.payload;
       localStorage.setItem("activeShift", JSON.stringify(action.payload));
     },
     finishActiveShift(state, action) {
-      state.shifts.map((shift) => {
-        if (shift.id === action.payload.id) {
-          shift = action.payload;
-        }
-      });
+      const shiftIndex = state.shifts.findIndex(
+        (shift) => shift.id === action.payload.id
+      );
+      state.shifts[shiftIndex] = action.payload;
+      console.log(shiftIndex);
       localStorage.removeItem("activeShift");
       state.activeShift = null;
       state.activeShiftStatus = null;
@@ -108,6 +152,19 @@ const shiftsSlice = createSlice({
         state.activeShift = activeShift;
         state.activeShiftStatus = "active";
       }
+    },
+    editShift(state, action) {
+      const shiftIndex = state.shifts.findIndex(
+        (shift) => shift.id === action.payload.id
+      );
+      state.shifts[shiftIndex] = action.payload;
+    },
+    deleteShift(state, action) {
+      const newShifts = state.shifts.filter(
+        (shift) => shift.id !== action.payload.id
+      );
+      state.shifts = newShifts;
+      console.log(newShifts);
     },
   },
   extraReducers: {
@@ -137,12 +194,30 @@ const shiftsSlice = createSlice({
       state.status = "resolved";
       state.error = null;
     },
+    [asyncEditShift.pending]: (state) => {
+      state.status = "loading";
+      state.error = null;
+    },
+    [asyncEditShift.fulfilled]: (state) => {
+      state.status = "resolved";
+      state.error = null;
+    },
+    [asyncDeleteShift.pending]: (state) => {
+      state.status = "loading";
+      state.error = null;
+    },
+    [asyncDeleteShift.fulfilled]: (state) => {
+      state.status = "resolved";
+      state.error = null;
+    },
+    [asyncEditShift.rejected]: setError,
     [fetchShifts.rejected]: setError,
     [finishShift.rejected]: setError,
     [setNewShift.rejected]: setError,
   },
 });
 
-const { createNewShift, finishActiveShift } = shiftsSlice.actions;
+const { createNewShift, finishActiveShift, editShift, deleteShift } =
+  shiftsSlice.actions;
 export const { checkLocalActiveShift } = shiftsSlice.actions;
 export default shiftsSlice.reducer;

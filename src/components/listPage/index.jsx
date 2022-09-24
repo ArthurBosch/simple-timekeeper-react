@@ -19,12 +19,7 @@ const ListPage = () => {
 
   const { status } = useSelector((state) => state.shifts);
   const { shiftInfoStatus } = useSelector((state) => state.shiftInfo);
-
-  const shiftsState = useSelector((state) => state.shifts.shifts);
-  const [shifts, setShifts] = useState(shiftsState);
-  useEffect(() => {
-    setShifts(shiftsState);
-  }, [shiftsState]);
+  const shifts = useSelector((state) => state.shifts.shifts);
 
   const renderShifts = () => {
     if (shifts) {

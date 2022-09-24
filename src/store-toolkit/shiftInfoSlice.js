@@ -8,6 +8,10 @@ const shiftInfoSlice = createSlice({
   },
   reducers: {
     toggleShiftInfo(state, action) {
+      if (!action.payload) {
+        state.shiftInfoStatus = false;
+        return;
+      }
       if (
         state.shiftInfoStatus &&
         state.activeShiftInfo.id === action.payload.id
