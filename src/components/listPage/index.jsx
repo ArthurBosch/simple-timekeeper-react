@@ -5,6 +5,7 @@ import "./listPage.css";
 import plus from "../../svg/plus.svg";
 import ShiftListItem from "./shiftListItem/shiftListItem";
 import ShiftListInfo from "./shiftListInfo";
+import DeleteModule from "./deleteModule/DeleteModule";
 import { useSelector } from "react-redux";
 import ListSkeleton from "../../skeleton/listSkeleton";
 
@@ -14,6 +15,8 @@ const ListPage = () => {
   useEffect(() => {
     changePageName("My Shifts");
   }, []);
+
+  const { deleteModuleStatus } = useSelector((state) => state.shiftInfo);
 
   //DATA
 
@@ -46,6 +49,7 @@ const ListPage = () => {
       </div>
       <div className="shift-list">{renderShifts()}</div>
       <ShiftListInfo />
+      {deleteModuleStatus && <DeleteModule />}
     </div>
   );
 };

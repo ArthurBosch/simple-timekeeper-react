@@ -5,7 +5,10 @@ import {
   asyncDeleteShift,
   asyncEditShift,
 } from "../../../store-toolkit/shiftSlice";
-import { toggleShiftInfo } from "../../../store-toolkit/shiftInfoSlice";
+import {
+  toggleDeleteModuleStatus,
+  toggleShiftInfo,
+} from "../../../store-toolkit/shiftInfoSlice";
 import { useSelector } from "react-redux";
 import edit from "../../../svg/edit.svg";
 
@@ -83,8 +86,10 @@ const ShiftListInfo = () => {
       <div className="info-container--controls-delete">
         <button
           onClick={() => {
-            dispatch(asyncDeleteShift(activeShiftInfo));
+            // dispatch(asyncDeleteShift(activeShiftInfo));
+            dispatch(toggleDeleteModuleStatus());
             dispatch(toggleShiftInfo());
+            // dispatch(toggleShiftInfo());
           }}
         >
           Delete
