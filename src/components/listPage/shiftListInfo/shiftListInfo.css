@@ -1,16 +1,17 @@
 .info-container {
   display: hidden;
   position: fixed;
-  bottom: -35vh;
+  bottom: -40vh;
   width: 100%;
   box-sizing: border-box;
   max-width: 600px;
-  height: 35vh;
+  height: 40vh;
   padding: 40px 40px;
 
   display: grid;
   grid-template-columns: 1fr 1fr 100px;
   grid-template-rows: 1fr 1fr 1fr;
+  /* grid-template-rows: 70px 70px 70px; */
   grid-column-gap: 20px;
   grid-row-gap: 10px;
 
