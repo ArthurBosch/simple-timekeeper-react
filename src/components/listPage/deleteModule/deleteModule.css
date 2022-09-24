@@ -50,26 +50,26 @@
 .controls-container {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  align-items: center;
   margin-top: 2rem;
   height: 60px;
 }
 
 .controls-button-delete {
-  width: 100px;
-  height: 40px;
+  width: 140px;
+  height: 60px;
   background-color: #f94a5b;
   color: #fff;
   border: 1px solid #f94a5b;
-  margin-right: 15px;
+  margin-right: 25px;
   border-radius: 5px;
   font-weight: 700;
   box-shadow: 1px 1px 12px -5px #000000;
 }
 
-.controls-button-delete:hover {
-  width: 105px;
-  height: 45px;
+.controls-button-delete:active {
+  width: 145px;
+  height: 65px;
   background-color: #f97380;
   transition: all 0.1s ease-in;
 }
@@ -83,13 +83,13 @@
   font-weight: 700;
   border-radius: 5px;
   color: #fff;
-  width: 100px;
-  height: 40px;
+  width: 140px;
+  height: 60px;
 }
 
-.controls-button-cancel:hover {
-  width: 105px;
-  height: 45px;
+.controls-button-cancel:active {
+  width: 145px;
+  height: 65px;
   background-color: #63fefed1;
   transition: all 0.1s ease-in;
 }
