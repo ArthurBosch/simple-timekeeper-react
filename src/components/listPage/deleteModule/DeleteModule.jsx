@@ -1,14 +1,31 @@
 import "./deleteModule.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
 import { asyncDeleteShift } from "../../../store-toolkit/shiftSlice";
 import {
   toggleDeleteModuleStatus,
   toggleShiftInfo,
 } from "../../../store-toolkit/shiftInfoSlice";
+import { useEffect } from "react";
 
 const DeleteModule = () => {
-  const { activeShiftInfo } = useSelector((state) => state.shiftInfo);
+  const { activeShiftInfo, deleteModuleStatus } = useSelector(
+    (state) => state.shiftInfo
+  );
+
+  const openModule = () => {
+    setTimeout(() => {
+      container.current.className =
+        "delete-module--container delete-module--container-active";
+    }, 100);
+  };
+
+  useEffect(() => {
+    openModule();
+  }, []);
+
   const dispatch = useDispatch();
+  const container = useRef();
   if (activeShiftInfo) {
     const { startTime, endTime } = activeShiftInfo;
 
@@ -21,6 +38,7 @@ const DeleteModule = () => {
       dispatch(toggleDeleteModuleStatus());
       dispatch(toggleShiftInfo(true));
     };
+
     return (
       <>
         <div
@@ -30,7 +48,11 @@ const DeleteModule = () => {
           }}
         ></div>
 
-        <div className="delete-module--container" id="deleteModule">
+        <div
+          className="delete-module--container"
+          ref={container}
+          id="deleteModule"
+        >
           <div className="delete-module">
             <h1 className="delete-module--header">Delete shift?</h1>
             <span className="delete-module--shift-info-date">
