@@ -22,7 +22,7 @@
 }
 
 .delete-module {
-  width: 80%;
+  width: 90%;
   height: 30%;
   padding: 30px 10px 30px 10px;
   border-radius: 15px;
@@ -43,7 +43,7 @@
   color: #fff;
   margin: 10px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 300;
   letter-spacing: 0.01em;
 }
 
@@ -57,7 +57,7 @@
 
 .controls-button-delete {
   width: 140px;
-  height: 60px;
+  height: 50px;
   background-color: #f94a5b;
   color: #fff;
   border: 1px solid #f94a5b;
@@ -69,7 +69,7 @@
 
 .controls-button-delete:active {
   width: 145px;
-  height: 65px;
+  height: 55px;
   background-color: #f97380;
   transition: all 0.1s ease-in;
 }
@@ -84,12 +84,12 @@
   border-radius: 5px;
   color: #fff;
   width: 140px;
-  height: 60px;
+  height: 50px;
 }
 
 .controls-button-cancel:active {
   width: 145px;
-  height: 65px;
+  height: 55px;
   background-color: #63fefed1;
   transition: all 0.1s ease-in;
 }
@@ -99,7 +99,7 @@
 }
 
 .delete-module--shift-info-start {
-  margin-top: 5px;
+  margin-top: 10px;
   color: #fff;
   opacity: 0.8;
 }

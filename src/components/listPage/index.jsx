@@ -37,7 +37,7 @@ const ListPage = () => {
       className="list-page--container"
       id="listContainer"
       style={
-        shiftInfoStatus ? { marginBottom: "32vh" } : { marginBottom: "10px" }
+        shiftInfoStatus ? { marginBottom: "42vh" } : { marginBottom: "10px" }
       }
     >
       {status === "loading" && <ListSkeleton />}
