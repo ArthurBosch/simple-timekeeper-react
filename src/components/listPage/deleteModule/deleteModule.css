@@ -1,5 +1,5 @@
 .delete-module-overlay {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   height: 100%;
@@ -10,7 +10,7 @@
 }
 
 .delete-module--container {
-  position: absolute;
+  position: fixed;
   top: 20%;
   opacity: 0;
   left: 0;
@@ -27,6 +27,7 @@
 .delete-module--container-active {
   top: 40%;
   opacity: 1;
+  transition: all 0.2s ease-in-out;
 }
 
 .delete-module {

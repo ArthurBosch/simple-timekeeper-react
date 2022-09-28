@@ -115,6 +115,29 @@ export const asyncDeleteShift = createAsyncThunk(
   }
 );
 
+export const asyncAddShift = createAsyncThunk(
+  "shifts/addShift",
+  async function (shift, { rejectWithValue, dispatch }) {
+    try {
+      const response = await fetch(`${PORT}/shifts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(shift),
+      });
+
+      if (!response.ok) {
+        throw new Error("Unable to add shift");
+      }
+
+      dispatch(addNewShift(shift));
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const setError = (state, action) => {
   state.status = "rejected";
   state.error = action.payload;
@@ -166,6 +189,9 @@ const shiftsSlice = createSlice({
       state.shifts = newShifts;
       console.log(newShifts);
     },
+    addNewShift(state, action) {
+      state.shifts.unshift(action.payload);
+    },
   },
   extraReducers: {
     [fetchShifts.pending]: (state) => {
@@ -210,14 +236,28 @@ const shiftsSlice = createSlice({
       state.status = "resolved";
       state.error = null;
     },
+    [asyncAddShift.pending]: (state) => {
+      state.status = "loading";
+      state.error = null;
+    },
+    [asyncAddShift.fulfilled]: (state) => {
+      state.status = "resolved";
+      state.error = null;
+    },
     [asyncEditShift.rejected]: setError,
     [fetchShifts.rejected]: setError,
     [finishShift.rejected]: setError,
     [setNewShift.rejected]: setError,
+    [asyncAddShift.rejected]: setError,
   },
 });
 
-const { createNewShift, finishActiveShift, editShift, deleteShift } =
-  shiftsSlice.actions;
+const {
+  createNewShift,
+  finishActiveShift,
+  editShift,
+  deleteShift,
+  addNewShift,
+} = shiftsSlice.actions;
 export const { checkLocalActiveShift } = shiftsSlice.actions;
 export default shiftsSlice.reducer;

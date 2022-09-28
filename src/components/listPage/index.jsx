@@ -6,8 +6,14 @@ import plus from "../../svg/plus.svg";
 import ShiftListItem from "./shiftListItem/shiftListItem";
 import ShiftListInfo from "./shiftListInfo";
 import DeleteModule from "./deleteModule/DeleteModule";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import ListSkeleton from "../../skeleton/listSkeleton";
+import AddShift from "./addShift/AddShift";
+import {
+  toggleDeleteModuleStatus,
+  toggleEditModuleStatus,
+  toggleShiftInfo,
+} from "../../store-toolkit/shiftInfoSlice";
 
 const ListPage = () => {
   //UI STATE
@@ -16,10 +22,13 @@ const ListPage = () => {
     changePageName("My Shifts");
   }, []);
 
-  const { deleteModuleStatus } = useSelector((state) => state.shiftInfo);
+  const { deleteModuleStatus, editModuleStatus } = useSelector(
+    (state) => state.shiftInfo
+  );
 
   //DATA
 
+  const dispatch = useDispatch();
   const { status } = useSelector((state) => state.shifts);
   const { shiftInfoStatus } = useSelector((state) => state.shiftInfo);
   const shifts = useSelector((state) => state.shifts.shifts);
@@ -42,7 +51,13 @@ const ListPage = () => {
     >
       {status === "loading" && <ListSkeleton />}
       <div className="add-shift">
-        <button className="add-shift--button">
+        <button
+          className="add-shift--button"
+          onClick={() => {
+            dispatch(toggleEditModuleStatus());
+            dispatch(toggleShiftInfo());
+          }}
+        >
           Add shift manually
           <img src={plus} className="plus-sign" />
         </button>
@@ -50,6 +65,7 @@ const ListPage = () => {
       <div className="shift-list">{renderShifts()}</div>
       <ShiftListInfo />
       {deleteModuleStatus && <DeleteModule />}
+      {editModuleStatus && <AddShift />}
     </div>
   );
 };

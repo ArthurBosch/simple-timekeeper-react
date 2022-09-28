@@ -6,6 +6,7 @@ const shiftInfoSlice = createSlice({
     shiftInfoStatus: false,
     activeShiftInfo: null,
     deleteModuleStatus: false,
+    editModuleStatus: false,
   },
   reducers: {
     toggleShiftInfo(state, action) {
@@ -15,7 +16,6 @@ const shiftInfoSlice = createSlice({
       }
       if (action.payload === true) {
         state.shiftInfoStatus = true;
-        console.log(action.payload);
         return;
       }
 
@@ -36,9 +36,15 @@ const shiftInfoSlice = createSlice({
     toggleDeleteModuleStatus(state) {
       state.deleteModuleStatus = !state.deleteModuleStatus;
     },
+    toggleEditModuleStatus(state) {
+      state.editModuleStatus = !state.editModuleStatus;
+    },
   },
 });
 
-export const { toggleShiftInfo, toggleDeleteModuleStatus } =
-  shiftInfoSlice.actions;
+export const {
+  toggleShiftInfo,
+  toggleDeleteModuleStatus,
+  toggleEditModuleStatus,
+} = shiftInfoSlice.actions;
 export default shiftInfoSlice.reducer;

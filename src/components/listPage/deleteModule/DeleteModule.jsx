@@ -22,6 +22,11 @@ const DeleteModule = () => {
 
   useEffect(() => {
     openModule();
+    document.querySelector(".list-page--container").style.overflowY = "hidden";
+    return function cleanup() {
+      document.querySelector(".list-page--container").style.overflowY =
+        "scroll";
+    };
   }, []);
 
   const dispatch = useDispatch();
@@ -35,8 +40,19 @@ const DeleteModule = () => {
 
     const closeModule = (e) => {
       if (e.target.closest("#deleteModule")) return;
-      dispatch(toggleDeleteModuleStatus());
-      dispatch(toggleShiftInfo(true));
+      container.current.className = "delete-module--container";
+      setTimeout(() => {
+        dispatch(toggleDeleteModuleStatus());
+        dispatch(toggleShiftInfo(true));
+      }, 100);
+    };
+
+    const closeModuleOnCancel = () => {
+      container.current.className = "delete-module--container";
+      setTimeout(() => {
+        dispatch(toggleDeleteModuleStatus());
+        dispatch(toggleShiftInfo(true));
+      }, 100);
     };
 
     return (
@@ -75,8 +91,7 @@ const DeleteModule = () => {
               <button
                 className="controls-button-cancel"
                 onClick={() => {
-                  dispatch(toggleDeleteModuleStatus());
-                  dispatch(toggleShiftInfo(true));
+                  closeModuleOnCancel();
                 }}
               >
                 Cancel
