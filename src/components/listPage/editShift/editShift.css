@@ -1,4 +1,4 @@
-.add-shift--overlay {
+.edit-shift--overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -9,7 +9,7 @@
   opacity: 0.6;
 }
 
-.add-shift--container {
+.edit-shift--container {
   position: absolute;
   top: 0;
   opacity: 0;
@@ -32,49 +32,49 @@
   transition: all 0.3s ease-in-out;
 }
 
-.add-shift--container-active {
+.edit-shift--container-active {
   top: 20vh;
   opacity: 1;
   transition: all 0.3s ease-in-out;
 }
 
-.add-shift--header-container {
+.edit-shift--header-container {
   width: 80%;
 }
-.add-shift--header {
+.edit-shift--header {
   color: #fff;
 }
 
-.add-shift--form {
+.edit-shift--form {
   display: flex;
   flex-direction: column;
   width: 80%;
 }
 
-.add-shift--input-container {
+.edit-shift--input-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-top: 15px;
 }
 
-.add-shift--form label {
+.edit-shift--form label {
   color: #fff;
   font-weight: 700;
 }
 
-.add-shift--form input {
+.edit-shift--form input {
   width: 50%;
   height: 40px;
   border-radius: 5px;
 }
 
-.add-shift--controls {
+.edit-shift--controls {
   display: flex;
   justify-content: center;
 }
 
-.add-shift--controls button {
+.edit-shift--controls button {
   width: 200px;
   height: 50px;
   border-radius: 5px;
@@ -83,33 +83,33 @@
   transition: all 0.2s ease-in-out;
 }
 
-.add-shift--button-cancel {
+.edit-shift--button-cancel {
   border: 3px solid #f94a5b;
   background: #fff;
 }
 
-.add-shift--button-cancel:hover {
+.edit-shift--button-cancel:hover {
   width: 215px;
   box-shadow: 5px 5px 1px #ff0000;
 }
 
-.add-shift--button-cancel:active {
+.edit-shift--button-cancel:active {
   width: 190px;
   box-shadow: 1px 1px 1px #ff0000;
 }
 
-.add-shift--button-submit {
+.edit-shift--button-submit {
   color: #fff;
   border: 1px solid #00b3b3;
   background-color: #00b3b3;
 }
 
-.add-shift--button-submit:hover {
+.edit-shift--button-submit:hover {
   width: 215px;
   box-shadow: 5px 5px 1px #fff;
 }
 
-.add-shift--button-submit:active {
+.edit-shift--button-submit:active {
   width: 190px;
   box-shadow: 1px 1px 1px #fff;
 }

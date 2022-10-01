@@ -10,25 +10,28 @@ import { useSelector, useDispatch } from "react-redux";
 import ListSkeleton from "../../skeleton/listSkeleton";
 import AddShift from "./addShift/AddShift";
 import {
-  toggleDeleteModuleStatus,
-  toggleEditModuleStatus,
+  toggleAddModuleStatus,
   toggleShiftInfo,
 } from "../../store-toolkit/shiftInfoSlice";
+import EditShift from "./editShift/EditShift";
 
 const ListPage = () => {
+  const dispatch = useDispatch();
   //UI STATE
   const { changePageName } = useContext(AppUIContext);
   useEffect(() => {
     changePageName("My Shifts");
+    return function cleanup() {
+      dispatch(toggleShiftInfo());
+    };
   }, []);
 
-  const { deleteModuleStatus, editModuleStatus } = useSelector(
+  const { deleteModuleStatus, addModuleStatus, editModuleStatus } = useSelector(
     (state) => state.shiftInfo
   );
 
   //DATA
 
-  const dispatch = useDispatch();
   const { status } = useSelector((state) => state.shifts);
   const { shiftInfoStatus } = useSelector((state) => state.shiftInfo);
   const shifts = useSelector((state) => state.shifts.shifts);
@@ -54,7 +57,7 @@ const ListPage = () => {
         <button
           className="add-shift--button"
           onClick={() => {
-            dispatch(toggleEditModuleStatus());
+            dispatch(toggleAddModuleStatus());
             dispatch(toggleShiftInfo());
           }}
         >
@@ -65,7 +68,8 @@ const ListPage = () => {
       <div className="shift-list">{renderShifts()}</div>
       <ShiftListInfo />
       {deleteModuleStatus && <DeleteModule />}
-      {editModuleStatus && <AddShift />}
+      {addModuleStatus && <AddShift />}
+      {editModuleStatus && <EditShift />}
     </div>
   );
 };

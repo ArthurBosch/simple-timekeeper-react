@@ -1,27 +1,18 @@
 import { useEffect } from "react";
 import { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleEditModuleStatus } from "../../../store-toolkit/shiftInfoSlice";
+import { toggleAddModuleStatus } from "../../../store-toolkit/shiftInfoSlice";
 import { asyncAddShift } from "../../../store-toolkit/shiftSlice";
 import "./addShift.css";
+import { convert12to24 } from "../../../methods/methods";
 const AddShift = () => {
   const dispatch = useDispatch();
   const container = useRef();
 
   const [shift, updateShift] = useState({
     date: new Date().toLocaleDateString("en-CA"),
-    timeStart: new Date()
-      .toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-      .slice(0, 5),
-    timeFinish: new Date()
-      .toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-      .slice(0, 5),
+    timeStart: convert12to24(new Date().toLocaleTimeString()),
+    timeFinish: convert12to24(new Date().toLocaleTimeString()),
   });
 
   useEffect(() => {
@@ -43,7 +34,7 @@ const AddShift = () => {
   const closeModule = () => {
     container.current.className = "add-shift--container";
     setTimeout(() => {
-      dispatch(toggleEditModuleStatus());
+      dispatch(toggleAddModuleStatus());
     }, 200);
   };
 
@@ -59,7 +50,6 @@ const AddShift = () => {
       startTime: timeStart,
       endTime: timeEnd,
     };
-    // console.log(shiftToSubmit);
     dispatch(asyncAddShift(shiftToSubmit));
     closeModule();
   };

@@ -2,12 +2,9 @@ import "./shiftListInfo.css";
 import { countDayEarnings } from "../../../methods/methods";
 import { useDispatch } from "react-redux";
 import {
-  asyncDeleteShift,
-  asyncEditShift,
-} from "../../../store-toolkit/shiftSlice";
-import {
   toggleDeleteModuleStatus,
   toggleShiftInfo,
+  toggleEditModuleStatus,
 } from "../../../store-toolkit/shiftInfoSlice";
 import { useSelector } from "react-redux";
 import edit from "../../../svg/edit.svg";
@@ -79,17 +76,20 @@ const ShiftListInfo = () => {
         <span className="info-container--brake-span">min. brake</span>
       </div>
       <div className="info-container--controls-edit">
-        <button>
+        <button
+          onClick={() => {
+            dispatch(toggleEditModuleStatus());
+            dispatch(toggleShiftInfo(false));
+          }}
+        >
           Edit Shift <img src={edit} className="edit-icon" />
         </button>
       </div>
       <div className="info-container--controls-delete">
         <button
           onClick={() => {
-            // dispatch(asyncDeleteShift(activeShiftInfo));
             dispatch(toggleDeleteModuleStatus());
             dispatch(toggleShiftInfo());
-            // dispatch(toggleShiftInfo());
           }}
         >
           Delete

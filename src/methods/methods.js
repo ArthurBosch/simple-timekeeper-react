@@ -91,3 +91,15 @@ export const countEarningsByMiliSeconds = (miliseconds, baseWage = 47) => {
   const hoursThisDay = miliseconds / 1000 / 60 / 60;
   return `${Math.floor(hoursThisDay * baseWage)} ₪`;
 };
+
+export const convert12to24 = (timeStr) => {
+  const [time, modifier] = timeStr.split(" ");
+  let [hours, minutes] = time.split(":");
+  if (hours === "12") {
+    hours = "00";
+  }
+  if (modifier === "PM") {
+    hours = parseInt(hours, 10) + 12;
+  }
+  return `${hours}:${minutes}`;
+};
