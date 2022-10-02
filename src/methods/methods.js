@@ -101,5 +101,34 @@ export const convert12to24 = (timeStr) => {
   if (modifier === "PM") {
     hours = parseInt(hours, 10) + 12;
   }
+  if (hours.length < 2) {
+    hours = `0${hours}`;
+  }
   return `${hours}:${minutes}`;
+};
+
+export const getFormattedDataFromDay = (startTime, endTime, weekday) => {
+  if (!endTime) endTime = new Date().toISOString();
+  const baseDate = new Date(startTime);
+  const optionsDay = { weekday: weekday };
+  const num = baseDate.getDate();
+  const optionsMonth = { month: "short" };
+  const month = new Intl.DateTimeFormat("en-US", optionsMonth).format(baseDate);
+  const day = new Intl.DateTimeFormat("en-US", optionsDay).format(baseDate);
+  const timeStartToDisplay = convert12to24(baseDate.toLocaleTimeString());
+  const timeEndToDisplay = convert12to24(
+    new Date(endTime).toLocaleTimeString()
+  );
+  const earningsToDisplay = countDayEarnings({ startTime, endTime });
+  const workingHours = countDayHours({ startTime, endTime });
+
+  return {
+    num,
+    month,
+    day,
+    timeStartToDisplay,
+    timeEndToDisplay,
+    earningsToDisplay,
+    workingHours,
+  };
 };

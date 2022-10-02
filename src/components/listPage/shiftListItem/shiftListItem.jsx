@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { getFormattedDataFromDay } from "../../../methods/methods";
 import { toggleShiftInfo } from "../../../store-toolkit/shiftInfoSlice";
 
 const ShiftListItem = ({ props, scrollToBottom }) => {
@@ -7,12 +8,8 @@ const ShiftListItem = ({ props, scrollToBottom }) => {
   const dispatch = useDispatch();
   let { startTime, endTime } = props;
   if (!endTime) endTime = new Date().toISOString();
-  const baseDate = new Date(startTime);
-  const options = { weekday: "short" };
-  const num = baseDate.getDate();
-  const day = new Intl.DateTimeFormat("en-US", options).format(baseDate);
-  const timeStartToDisplay = baseDate.toString().slice(16, 21);
-  const timeEndToDisplay = new Date(endTime).toString().slice(16, 21);
+  const { num, day, timeStartToDisplay, timeEndToDisplay } =
+    getFormattedDataFromDay(startTime, endTime, "short");
 
   const makeActive = (e) => {
     const prev = document.querySelector(".shift-list--item-active");
@@ -36,12 +33,6 @@ const ShiftListItem = ({ props, scrollToBottom }) => {
     }
   };
 
-  const scrollToBottomItem = () => {
-    if (scrollToBottom) {
-      return scrollToBottom();
-    }
-  };
-
   return (
     <div
       className="shift-list--item"
@@ -50,7 +41,6 @@ const ShiftListItem = ({ props, scrollToBottom }) => {
       onClick={(e) => {
         dispatch(toggleShiftInfo(props));
         makeActive(e);
-        scrollToBottomItem();
       }}
     >
       <div className="shift-list--date">

@@ -1,11 +1,29 @@
 {
-  "user": {},
-  "shifts": [
+  "users": [
     {
-      "id": "timeStamp",
-      "timeStart": "ISOStamp",
-      "timeFinish": "ISOStamp",
-      "workingHours": "number"
+      "id": "1164586145",
+      "username": "Arthur Bosch",
+      "jobs": {
+        "sheraton": {
+          "base_wage": 52,
+          "shifts": [
+            {
+              "id": 124244124,
+              "timeStart": "*ISOString*",
+              "timeEnd": "*ISOString*",
+              "wage": 52
+            },
+            {
+              "id": 124244124,
+              "timeStart": "*ISOString*",
+              "timeEnd": "*ISOString*",
+              "wage": 52
+            }
+          ]
+        },
+        "aroma": {},
+        "extra": {}
+      }
     }
   ]
 }

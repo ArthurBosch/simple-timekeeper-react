@@ -5,15 +5,11 @@ import { useDispatch } from "react-redux";
 const HomeMain = () => {
   const dispatch = useDispatch();
 
-  const runShift = () => {
-    dispatch(setNewShift());
-  };
-
   return (
     <div className="main" id="id">
       <div className="preset-container">
         <label className="preset-label" htmlFor="preset">
-          Preset:
+          Shift at:
         </label>
         <br />
         <select className="preset-select" name="preset">
@@ -31,7 +27,7 @@ const HomeMain = () => {
       <button
         className="start-shift-button"
         onClick={() => {
-          runShift();
+          dispatch(setNewShift());
         }}
       >
         Start Shift

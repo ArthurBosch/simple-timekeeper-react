@@ -1,19 +1,21 @@
-import { useEffect, useContext, useState } from "react";
-import { AppUIContext } from "../../App";
-
 import "./listPage.css";
+
 import plus from "../../svg/plus.svg";
 import ShiftListItem from "./shiftListItem/shiftListItem";
 import ShiftListInfo from "./shiftListInfo";
 import DeleteModule from "./deleteModule/DeleteModule";
-import { useSelector, useDispatch } from "react-redux";
 import ListSkeleton from "../../skeleton/listSkeleton";
 import AddShift from "./addShift/AddShift";
+import EditShift from "./editShift/EditShift";
+
+import { useEffect, useContext } from "react";
+import { AppUIContext } from "../../App";
+
+import { useSelector, useDispatch } from "react-redux";
 import {
   toggleAddModuleStatus,
   toggleShiftInfo,
 } from "../../store-toolkit/shiftInfoSlice";
-import EditShift from "./editShift/EditShift";
 
 const ListPage = () => {
   const dispatch = useDispatch();
@@ -26,15 +28,16 @@ const ListPage = () => {
     };
   }, []);
 
-  const { deleteModuleStatus, addModuleStatus, editModuleStatus } = useSelector(
-    (state) => state.shiftInfo
-  );
-
   //DATA
 
-  const { status } = useSelector((state) => state.shifts);
-  const { shiftInfoStatus } = useSelector((state) => state.shiftInfo);
-  const shifts = useSelector((state) => state.shifts.shifts);
+  const { status, shifts } = useSelector((state) => state.shifts);
+  const {
+    shiftInfoStatus,
+    deleteModuleStatus,
+    addModuleStatus,
+    editModuleStatus,
+    activeShiftInfo,
+  } = useSelector((state) => state.shiftInfo);
 
   const renderShifts = () => {
     if (shifts) {
@@ -66,7 +69,7 @@ const ListPage = () => {
         </button>
       </div>
       <div className="shift-list">{renderShifts()}</div>
-      <ShiftListInfo />
+      {activeShiftInfo && <ShiftListInfo />}
       {deleteModuleStatus && <DeleteModule />}
       {addModuleStatus && <AddShift />}
       {editModuleStatus && <EditShift />}

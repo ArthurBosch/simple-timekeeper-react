@@ -37,10 +37,12 @@ const EditShift = () => {
         "edit-shift--container edit-shift--container-active";
     }, 100);
   };
+
   const closeModule = () => {
     dispatch(toggleEditModuleStatus());
     dispatch(toggleShiftInfo(true));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const timeStartString = `${shiftInfo.date} ${shiftInfo.startTime}`;
@@ -54,9 +56,8 @@ const EditShift = () => {
       endTime: endTime,
     };
     dispatch(asyncEditShift(shift));
-    dispatch(toggleEditModuleStatus());
     dispatch(updateActiveShiftInfo(shift));
-    dispatch(toggleShiftInfo(true));
+    closeModule();
   };
   return (
     <>

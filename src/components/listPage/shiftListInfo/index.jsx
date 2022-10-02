@@ -1,5 +1,5 @@
 import "./shiftListInfo.css";
-import { countDayEarnings } from "../../../methods/methods";
+import { getFormattedDataFromDay } from "../../../methods/methods";
 import { useDispatch } from "react-redux";
 import {
   toggleDeleteModuleStatus,
@@ -16,30 +16,16 @@ const ShiftListInfo = () => {
 
   const dispatch = useDispatch();
 
-  let timeStartToDisplay = 0;
-  let timeEndToDisplay = 0;
-  let month = 0;
-  let num = 0;
-  let day = 0;
-  let workingHours = 0;
-  let earningsToDisplay = 0;
-
-  if (activeShiftInfo) {
-    let { startTime, endTime } = activeShiftInfo;
-    if (!endTime) endTime = new Date().toISOString();
-    const baseDate = new Date(startTime);
-    const optionsDay = { weekday: "long" };
-    const optionsMonth = { month: "short" };
-    num = baseDate.getDate();
-    month = new Intl.DateTimeFormat("en-US", optionsMonth).format(baseDate);
-    day = new Intl.DateTimeFormat("en-US", optionsDay).format(baseDate);
-    timeStartToDisplay = baseDate.toString().slice(16, 21);
-    timeEndToDisplay = new Date(endTime).toString().slice(16, 21);
-    const workingTime = new Date(endTime).getTime() - baseDate.getTime();
-    workingHours = new Date(workingTime).toISOString().slice(11, 16);
-
-    earningsToDisplay = countDayEarnings(activeShiftInfo);
-  }
+  let { startTime, endTime } = activeShiftInfo;
+  const {
+    num,
+    month,
+    day,
+    timeStartToDisplay,
+    timeEndToDisplay,
+    earningsToDisplay,
+    workingHours,
+  } = getFormattedDataFromDay(startTime, endTime, "long");
 
   return (
     <div

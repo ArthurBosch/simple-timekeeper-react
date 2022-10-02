@@ -1,6 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { useContext } from "react";
+import { useEffect, useState } from "react";
 import dobleChevron from "../../../svg/double-chevron.svg";
 import { useSelector } from "react-redux";
 
@@ -13,23 +11,23 @@ import {
 import "./homeFooter.css";
 
 const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
-  const [weeklyHours, setWeeklyHours] = useState();
-  const [averageHours, setAverageHours] = useState();
-  const [weeklyEarnings, setWeeklyEarnings] = useState();
-
-  const dataState = useSelector((state) => state.shifts.shifts);
-  const [data, setData] = useState(dataState);
-  useEffect(() => {
-    setData(dataState);
+  const [weeklyState, setWeeklyState] = useState({
+    weeklyHours: null,
+    averageHours: null,
+    weeklyEarnings: null,
   });
 
+  const dataState = useSelector((state) => state.shifts.shifts);
+
   useEffect(() => {
-    if (data.length > 0) {
-      setWeeklyHours(countWeeklyHours(data));
-      setAverageHours(countAverageDayHours(data));
-      setWeeklyEarnings(countWeeklyEarningsDemo(data));
+    if (dataState.length > 0) {
+      setWeeklyState({
+        weeklyHours: countWeeklyHours(dataState),
+        averageHours: countAverageDayHours(dataState),
+        weeklyEarnings: countWeeklyEarningsDemo(dataState),
+      });
     }
-  }, [data]);
+  }, [dataState]);
 
   return (
     <div
@@ -59,15 +57,15 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
             </div>
             <div className="shift-info--stats">
               <div className="stats-card">
-                <h3>{weeklyHours}</h3>
+                <h3>{weeklyState.weeklyHours}</h3>
                 <span>hours</span>
               </div>
               <div className="stats-card">
-                <h3>{weeklyEarnings}</h3>
+                <h3>{weeklyState.weeklyEarnings}</h3>
                 <span>earned</span>
               </div>
               <div className="stats-card">
-                <h3>{averageHours}</h3>
+                <h3>{weeklyState.averageHours}</h3>
                 <span>average</span>
               </div>
             </div>
