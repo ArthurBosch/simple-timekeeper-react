@@ -28,7 +28,7 @@ const ShiftPage = () => {
   };
 
   const [shiftTime, setShiftTime] = useState(checkLocalTime());
-  const [earned, setEarned] = useState();
+  const [earned, setEarned] = useState("0 ₪");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,12 +36,7 @@ const ShiftPage = () => {
     setInterval(() => {
       const delta = Date.now() - new Date(activeShift.startTime).getTime();
       const time = milisecondsToHours(delta);
-      const earned = countEarningsByMiliSeconds(delta);
-      if (earned < 1) {
-        setEarned(1);
-      } else {
-        setEarned(earned);
-      }
+      setEarned(countEarningsByMiliSeconds(delta));
       setShiftTime(time);
     }, 1000);
   });
