@@ -1,0 +1,60 @@
+@import "../../vars.module.scss";
+
+.overlay {
+  position: absolute;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $module-bg-color;
+}
+
+.side-navigation {
+  position: fixed;
+  z-index: 9999;
+  top: 0px;
+  right: 0px;
+  width: 50vw;
+  height: 100vh;
+  background-color: $main-color;
+  border-radius: 5px 0 0 5px;
+  color: #fff;
+  font-size: 1.25em;
+  font-weight: 500;
+  transition: right 0.3s ease-in-out;
+
+  ul {
+    list-style: none;
+    margin-top: 240px;
+
+    li {
+      padding: 15px;
+      width: 70%;
+      border-radius: 5px;
+      transition: background-color 0.5s ease-in;
+
+      &:hover {
+        background-color: $blue-secondary;
+        transition: background-color 0.25s ease-in;
+        font-weight: 700;
+      }
+
+      &:active {
+        background-color: $blue-tritary;
+      }
+    }
+  }
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  width: 100%;
+}
+.nav-link img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}

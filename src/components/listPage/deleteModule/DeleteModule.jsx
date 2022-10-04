@@ -1,4 +1,5 @@
-import "./deleteModule.css";
+import "./deleteModule.scss";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 import { asyncDeleteShift } from "../../../store-toolkit/shiftSlice";

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppUIContext } from "../../App";
 
-import "./nav.css";
+import "./nav.scss";
 
 const Navigation = () => {
   const { menuState, toggleMenuFunc } = useContext(AppUIContext);

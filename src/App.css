@@ -1,3 +1,5 @@
+@import-normalize;
+
 .App {
   position: relative;
   display: flex;

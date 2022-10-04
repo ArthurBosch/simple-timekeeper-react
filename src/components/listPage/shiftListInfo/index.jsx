@@ -1,4 +1,4 @@
-import "./shiftListInfo.css";
+import "./shiftListInfo.scss";
 import { getFormattedDataFromDay } from "../../../methods/methods";
 import { useDispatch } from "react-redux";
 import {

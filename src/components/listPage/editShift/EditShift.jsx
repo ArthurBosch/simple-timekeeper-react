@@ -1,6 +1,7 @@
+import "./editShift.scss";
+
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./editShift.css";
 import { convert12to24 } from "../../../methods/methods";
 import {
   toggleEditModuleStatus,

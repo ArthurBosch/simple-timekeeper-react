@@ -1,10 +1,14 @@
-import { useEffect } from "react";
-import { useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleAddModuleStatus } from "../../../store-toolkit/shiftInfoSlice";
+import "./addShift.scss";
+
+import { useState, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  toggleAddModuleStatus,
+  toggleShiftInfo,
+} from "../../../store-toolkit/shiftInfoSlice";
 import { asyncAddShift } from "../../../store-toolkit/shiftSlice";
-import "./addShift.css";
 import { convert12to24 } from "../../../methods/methods";
+
 const AddShift = () => {
   const dispatch = useDispatch();
   const container = useRef();
@@ -21,10 +25,12 @@ const AddShift = () => {
     return function cleanup() {
       document.querySelector(".list-page--container").style.overflowY =
         "scroll";
+      dispatch(toggleShiftInfo());
     };
   }, []);
 
   const openModule = () => {
+    dispatch(toggleShiftInfo());
     setTimeout(() => {
       container.current.className =
         "add-shift--container add-shift--container-active";
@@ -36,6 +42,7 @@ const AddShift = () => {
     setTimeout(() => {
       dispatch(toggleAddModuleStatus());
     }, 200);
+    dispatch(toggleShiftInfo());
   };
 
   const submitForm = (e) => {

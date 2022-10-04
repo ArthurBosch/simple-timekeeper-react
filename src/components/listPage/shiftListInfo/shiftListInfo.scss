@@ -1,3 +1,5 @@
+@import "../../../vars.module.scss";
+
 .info-container {
   display: hidden;
   position: fixed;
@@ -78,11 +80,16 @@
   height: 60px;
   color: #fff;
   border-radius: 5px;
-  border: 3px solid #00b3b3;
+  border: 3px solid $green-light;
   background-color: #0000b3;
   font-weight: 600;
-  box-shadow: 1px 1px 12px -5px #000000;
+  box-shadow: $button-box-shadow;
   transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    border-color: $green-light-hover;
+    box-shadow: $button-box-shadow-hover;
+  }
 }
 
 .edit-icon {
@@ -102,19 +109,16 @@
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
-  border: 1px solid #ff051e;
-  background-color: #f94a5b;
+  border: 1px solid $red-delete;
+  background-color: $red-delete;
   font-weight: 600;
-  box-shadow: 1px 1px 12px -5px #000000;
+  box-shadow: $button-box-shadow;
   transition: box-shadow 0.2s ease-in-out;
-}
 
-.info-container--controls-delete button:hover {
-  box-shadow: 5px 5px 1px #fff;
-}
-
-.info-container--controls-edit button:hover {
-  box-shadow: 5px 5px 1px #fff;
+  &:hover {
+    background-color: $red-delete-active;
+    box-shadow: $button-box-shadow-hover;
+  }
 }
 
 .delete-icon {

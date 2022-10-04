@@ -1,3 +1,4 @@
+import "./homeFooter.scss";
 import { useEffect, useState } from "react";
 import dobleChevron from "../../../svg/double-chevron.svg";
 import { useSelector } from "react-redux";
@@ -7,8 +8,6 @@ import {
   countAverageDayHours,
   countWeeklyEarningsDemo,
 } from "../../../methods/methods";
-
-import "./homeFooter.css";
 
 const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
   const [weeklyState, setWeeklyState] = useState({
@@ -33,7 +32,7 @@ const HomeFooter = ({ shiftInfo, toggleShiftInfo }) => {
     <div
       className="footer"
       id="footer"
-      style={shiftInfo ? { bottom: "0px" } : { bottom: "-35vh" }}
+      style={shiftInfo ? { bottom: "0px" } : { bottom: "-30vh" }}
     >
       <div className="footer-container">
         <div className="shift-info" id="shiftInfo">

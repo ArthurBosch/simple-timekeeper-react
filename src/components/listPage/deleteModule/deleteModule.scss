@@ -1,3 +1,5 @@
+@import "../../../vars.module.scss";
+
 .delete-module-overlay {
   position: fixed;
   left: 0;
@@ -65,25 +67,22 @@
 .controls-button-delete {
   width: 140px;
   height: 50px;
-  background-color: #f94a5b;
+  background-color: $red-delete;
   color: #fff;
-  border: 1px solid #f94a5b;
+  border: 1px solid $red-delete;
   margin-right: 25px;
   border-radius: 5px;
   font-weight: 700;
   box-shadow: 1px 1px 12px -5px #000000;
-}
 
-.controls-button-delete:active {
-  width: 145px;
-  height: 55px;
-  background-color: #f97380;
-  transition: all 0.1s ease-in;
+  &:hover {
+    background-color: $red-delete-active;
+    transition: all 0.15s ease-in;
+  }
 }
 
 .controls-button-cancel {
-  /* background: #0000b3; */
-  background: #11ebebd1;
+  background: $green-light;
   border: 2px solid #00b3b3;
   box-shadow: 1px 1px 12px -5px #000000;
 
@@ -92,13 +91,11 @@
   color: #fff;
   width: 140px;
   height: 50px;
-}
 
-.controls-button-cancel:active {
-  width: 145px;
-  height: 55px;
-  background-color: #63fefed1;
-  transition: all 0.1s ease-in;
+  &:hover {
+    background-color: $green-light-hover;
+    transition: all 0.15s ease-in;
+  }
 }
 
 .delete-module--shift-info-date {

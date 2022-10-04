@@ -61,7 +61,6 @@ const ListPage = () => {
           className="add-shift--button"
           onClick={() => {
             dispatch(toggleAddModuleStatus());
-            dispatch(toggleShiftInfo());
           }}
         >
           Add shift manually

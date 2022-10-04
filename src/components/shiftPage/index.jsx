@@ -1,4 +1,4 @@
-import "./shiftPage.css";
+import "./shiftPage.scss";
 import { useContext, useEffect, useState } from "react";
 import { AppUIContext } from "../../App";
 import { useNavigate } from "react-router-dom";

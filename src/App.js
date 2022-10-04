@@ -30,11 +30,7 @@ function App() {
     dispatch(checkLocalActiveShift());
   }, []);
   const toggleMenuFunc = () => {
-    if (menuState) {
-      toggleMenu(false);
-    } else {
-      toggleMenu(true);
-    }
+    toggleMenu(!menuState);
   };
 
   const [pageName, changePageName] = useState("Start Shift");

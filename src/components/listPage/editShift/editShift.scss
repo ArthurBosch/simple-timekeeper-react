@@ -1,3 +1,5 @@
+@import "../../../vars.module.scss";
+
 .edit-shift--overlay {
   position: absolute;
   top: 0;
@@ -49,6 +51,19 @@
   display: flex;
   flex-direction: column;
   width: 80%;
+
+  label {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  input {
+    width: 50%;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    padding: 0 10px;
+  }
 }
 
 .edit-shift--input-container {
@@ -58,58 +73,37 @@
   margin-top: 15px;
 }
 
-.edit-shift--form label {
-  color: #fff;
-  font-weight: 700;
-}
-
-.edit-shift--form input {
-  width: 50%;
-  height: 40px;
-  border-radius: 5px;
-}
-
 .edit-shift--controls {
   display: flex;
   justify-content: center;
-}
 
-.edit-shift--controls button {
-  width: 200px;
-  height: 50px;
-  border-radius: 5px;
-  margin: 35px 15px;
-  box-shadow: 1px 1px 12px -5px #000000;
-  transition: all 0.2s ease-in-out;
+  button {
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    margin: 35px 15px;
+    box-shadow: $button-box-shadow;
+    transition: all 0.2s ease-in-out;
+  }
 }
 
 .edit-shift--button-cancel {
-  border: 3px solid #f94a5b;
+  border: 1px solid $red-delete;
   background: #fff;
-}
 
-.edit-shift--button-cancel:hover {
-  width: 215px;
-  box-shadow: 5px 5px 1px #ff0000;
-}
-
-.edit-shift--button-cancel:active {
-  width: 190px;
-  box-shadow: 1px 1px 1px #ff0000;
+  &:hover {
+    border: 3px solid $red-delete-active;
+    box-shadow: $button-box-shadow-hover;
+  }
 }
 
 .edit-shift--button-submit {
   color: #fff;
-  border: 1px solid #00b3b3;
-  background-color: #00b3b3;
-}
+  background-color: $green-light;
+  border: 1px solid $green-dark;
 
-.edit-shift--button-submit:hover {
-  width: 215px;
-  box-shadow: 5px 5px 1px #fff;
-}
-
-.edit-shift--button-submit:active {
-  width: 190px;
-  box-shadow: 1px 1px 1px #fff;
+  &:hover {
+    background-color: $green-light-hover;
+    box-shadow: $button-box-shadow-hover;
+  }
 }

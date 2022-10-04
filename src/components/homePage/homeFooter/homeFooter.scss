@@ -1,3 +1,5 @@
+@import "../../../vars.module.scss";
+
 .footer {
   position: absolute;
   width: 100%;
@@ -27,15 +29,15 @@
   width: 80%;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-}
+  flex-wrap: nowrap;
 
-.shift-info--container h2 {
-  color: #fff;
-  font-size: 1.5em;
-  font-weight: 500;
-  margin-top: 40px;
-  margin-bottom: 0;
+  h2 {
+    color: #fff;
+    font-size: 2em;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 0;
+  }
 }
 
 .shift-info--stats {
@@ -43,15 +45,16 @@
   flex-direction: row;
   justify-content: space-between;
   margin-top: 30px;
-}
 
-.shift-info--stats h3 {
-  font-size: 1.25em;
-  font-weight: 700;
-  margin: 0;
-}
-.shift-info--stats span {
-  font-size: 0.625em;
+  h3 {
+    font-size: 1.25em;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  span {
+    font-size: 0.625em;
+  }
 }
 
 .stats-card {
@@ -69,28 +72,23 @@
   margin-top: 30px;
   display: flex;
   flex-direction: row-reverse;
-}
 
-.shift-info--controls button {
-  border-color: #001f7d;
-  border-radius: 5px;
-  border-width: 1px;
-  margin-left: 20px;
-  color: white;
-  background-color: rgb(0, 0, 0, 0);
-  width: 150px;
-  height: 45px;
-  font-size: 0.75em;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-}
+  button {
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    margin-left: 15px;
+    box-shadow: $button-box-shadow;
+    background-color: $green-light;
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+    border: none;
 
-.shift-info--controls button:hover {
-  border-color: #00b3b3;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.shift-info--controls button:active {
-  border-color: #000000;
+    &:hover {
+      background-color: $green-light-hover;
+      box-shadow: $button-box-shadow-hover;
+    }
+  }
 }
 
 .cirle-button {
@@ -107,19 +105,14 @@
   border-radius: 100px;
   transition: all 0.5s ease-in-out;
   z-index: 999;
-}
 
-.cirle-button > img {
-  width: 20px;
-  height: 20px;
-}
+  &:hover {
+    background: linear-gradient(45deg, #0202ec 0%, #012ba9 97.5%);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+  }
 
-.cirle-button:hover {
-  background: linear-gradient(45deg, #0202ec 0%, #012ba9 97.5%);
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
-}
-
-.cirle-button:active {
-  background: linear-gradient(180deg, #00b3b3 0%, #007d7d 100%);
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.25);
+  img {
+    width: 20px;
+    height: 20px;
+  }
 }
