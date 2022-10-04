@@ -25,7 +25,7 @@ const Navigation = () => {
       >
         <nav
           className="side-navigation"
-          style={menuState ? { right: "0vw" } : { right: "-50vw" }}
+          style={menuState ? { right: "0vw" } : { right: "-65vw" }}
           id="navigation"
         >
           <ul>
