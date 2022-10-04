@@ -30,12 +30,12 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  margin-top: 20px;
 
   h2 {
     color: #fff;
     font-size: 2em;
     font-weight: 700;
-    margin-top: 40px;
     margin-bottom: 0;
   }
 }
@@ -70,14 +70,15 @@
 
 .shift-info--controls {
   margin-top: 30px;
+  width: 100%;
   display: flex;
   flex-direction: row-reverse;
+  justify-content: space-between;
 
   button {
-    width: 200px;
+    width: (100% / 2) - 5;
     height: 50px;
     border-radius: 5px;
-    margin-left: 15px;
     box-shadow: $button-box-shadow;
     background-color: $green-light;
     transition: all 0.2s ease-in-out;
