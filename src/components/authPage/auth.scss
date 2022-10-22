@@ -1,0 +1,37 @@
+@import "../../vars.module.scss";
+
+.auth-page {
+  width: 100%;
+}
+
+.auth-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 15vh;
+
+  img {
+    width: 40px;
+    height: 40px;
+    padding: 10px 30px;
+  }
+
+  button {
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    margin: 0 30px;
+    box-shadow: $button-box-shadow;
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+    border: 2px solid $green-light;
+    background-color: #fff;
+    color: #000;
+    &:hover {
+      box-shadow: $button-box-shadow-hover;
+      border: solid $green-light-hover;
+    }
+  }
+}

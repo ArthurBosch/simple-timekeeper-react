@@ -1,0 +1,37 @@
+.workplace-intro--section {
+  h1 {
+    font-size: 1.8em;
+  }
+
+  width: 80%;
+  padding: 2rem;
+  height: auto;
+  position: static;
+}
+.warning-list-popup {
+  //position: fixed;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 10px 5px 10px 18px;
+}
+
+.workplace-inputs--section {
+  width: 70%;
+  padding: 1rem 2rem;
+  height: auto;
+  position: static;
+  input {
+    margin: 15px 0;
+    align-self: baseline;
+  }
+  form {
+    display: grid;
+  }
+  fieldset {
+    display: grid;
+  }
+}
+.input-radio {
+  margin: 0;
+  align-self: baseline;
+}

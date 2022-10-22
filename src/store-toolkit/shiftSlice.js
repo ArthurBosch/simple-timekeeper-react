@@ -5,7 +5,7 @@ export const fetchShifts = createAsyncThunk(
   "shifts/fetchShifts",
   async function (_, { rejectWithValue }) {
     try {
-      const response = await fetch(`${PORT}/shifts`);
+      const response = await fetch(`${PORT}/shift`);
       if (!response.ok) {
         throw new Error("Server Error!");
       }

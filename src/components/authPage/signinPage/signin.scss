@@ -1,0 +1,54 @@
+@import "../../../vars.module.scss";
+
+.signIn-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.signIn-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20vh;
+
+  button {
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    margin-top: 55px;
+    box-shadow: $button-box-shadow;
+    transition: all 0.2s ease-in-out;
+    color: #fff;
+    background: linear-gradient(90deg, $blue-secondary 0%, $main-color 100%);
+    border-width: 0px;
+    &:hover {
+      background: linear-gradient(
+        45deg,
+        $blue-tritary 0%,
+        $blue-secondary 97.5%
+      );
+      box-shadow: $button-box-shadow-hover;
+    }
+  }
+}
+
+.signIn-input-container {
+  input {
+    display: block;
+    height: 50px;
+    width: 300px;
+    border: none;
+    border-bottom: 1px solid $green-dark;
+  }
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.signIn-h1 {
+  width: 100%;
+}
