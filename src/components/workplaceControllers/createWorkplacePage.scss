@@ -1,37 +1,160 @@
-.workplace-intro--section {
-  h1 {
-    font-size: 1.8em;
-  }
+@import "../../vars.module.scss";
 
+main {
+  width: 100%;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+section {
   width: 80%;
-  padding: 2rem;
   height: auto;
   position: static;
-}
-.warning-list-popup {
-  //position: fixed;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  padding: 10px 5px 10px 18px;
+
+  p {
+    color: rgba(45, 45, 45, 0.6);
+
+    button {
+      border: none;
+      color: $main-color;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+
+    label {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    input {
+      height: 60px;
+      width: 40%;
+      border-radius: 5px;
+      border: none;
+      border-bottom: solid #9999 1px;
+      font-size: 1em;
+    }
+
+    button {
+      margin-top: 3em;
+      width: 100%;
+      height: 60px;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      background: linear-gradient(90deg, $main-color 0%, $blue-secondary 100%);
+      box-shadow: $button-box-shadow;
+      transition: all 0.2s ease-out;
+      font-size: 1.2em;
+      letter-spacing: 0.05em;
+
+      &:hover {
+        box-shadow: $button-box-shadow-hover;
+        background: linear-gradient(
+          90deg,
+          $blue-secondary 100%,
+          $main-color 0%
+        );
+      }
+    }
+  }
 }
 
-.workplace-inputs--section {
-  width: 70%;
-  padding: 1rem 2rem;
-  height: auto;
-  position: static;
-  input {
-    margin: 15px 0;
-    align-self: baseline;
+fieldset {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: none;
+  border-bottom: solid #9999 1px;
+  padding: 0;
+  margin: 0;
+  padding-bottom: 1em;
+  margin-bottom: 2em;
+
+  legend {
+    padding: 0;
+    font-size: 1.2em;
   }
-  form {
-    display: grid;
-  }
-  fieldset {
-    display: grid;
+
+  label {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    input {
+      width: 20px;
+      height: 20px;
+      margin-top: 1em;
+    }
   }
 }
-.input-radio {
-  margin: 0;
-  align-self: baseline;
+
+.currency-select {
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column;
+
+  select {
+    margin-top: 1em;
+    width: 40%;
+    height: 60px;
+    border: none;
+    border-bottom: 1px solid #9999;
+    font-size: 1em;
+  }
+}
+
+.workplace-intro--warning-block {
+  background-color: rgb(37, 37, 37);
+  padding: 1em;
+  color: rgb(225, 225, 225);
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 3em;
+
+  img {
+    position: absolute;
+    padding: 10px;
+    width: 20px;
+    height: 20px;
+    top: 10px;
+    right: 10px;
+    transition: all 0.2s;
+
+    &:hover {
+      width: 22px;
+      height: 22px;
+      top: 8px;
+      right: 8px;
+    }
+  }
+
+  li {
+    margin-top: 1em;
+  }
+  button {
+    margin: 1em;
+    width: 200px;
+    height: 40px;
+    background: $red-delete;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 3em;
+  }
+}
+
+._hidden {
+  display: none;
+}
+
+._scrollable {
+  overflow-y: scroll;
 }

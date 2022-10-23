@@ -3,12 +3,12 @@ export const getThisWeek = (data) => {
   //data -- array of shifts
   const lastSeven = data.slice(0, 7);
   const weekdays = lastSeven.map(
-    (shift) => new Array(new Date(shift.startTime).toString().split(" "))
+    (shift) => new Array(new Date(shift.timeStart).toString().split(" "))
   );
   const lastSunday = weekdays.find((day) => day[0][0] === "Sun");
   const lastSundayDate = parseInt(lastSunday[0][2]);
   const lastSundayDateObject = lastSeven.find(
-    (shift) => new Date(shift.startTime).getDate() === lastSundayDate
+    (shift) => new Date(shift.timeStart).getDate() === lastSundayDate
   );
   const lastSundayDateIndex = lastSeven.findIndex(
     (shift) => shift === lastSundayDateObject
@@ -21,7 +21,7 @@ export const getThisWeek = (data) => {
 export const shiftsToMilliseconds = (days) => {
   const milliseconds = days.map((shift) => {
     const delta =
-      new Date(shift.endTime).getTime() - new Date(shift.startTime).getTime();
+      new Date(shift.timeEnd).getTime() - new Date(shift.timeStart).getTime();
     return delta;
   });
   return milliseconds;
@@ -52,7 +52,7 @@ export const countWeeklyMiliseconds = (data) => {
 
 export const countDayMilliseconds = (shift) => {
   const delta =
-    new Date(shift.endTime).getTime() - new Date(shift.startTime).getTime();
+    new Date(shift.timeEnd).getTime() - new Date(shift.timeStart).getTime();
   return delta;
 };
 
@@ -107,9 +107,10 @@ export const convert12to24 = (timeStr) => {
   return `${hours}:${minutes}`;
 };
 
-export const getFormattedDataFromDay = (startTime, endTime, weekday) => {
-  if (!endTime) endTime = new Date().toISOString();
-  const baseDate = new Date(startTime);
+export const getFormattedDataFromDay = (timeStart, timeEnd, weekday) => {
+  console.log(timeStart, timeEnd, weekday);
+  if (!timeEnd) timeEnd = new Date().toISOString();
+  const baseDate = new Date(timeStart);
   const optionsDay = { weekday: weekday };
   const num = baseDate.getDate();
   const optionsMonth = { month: "short" };
@@ -117,10 +118,10 @@ export const getFormattedDataFromDay = (startTime, endTime, weekday) => {
   const day = new Intl.DateTimeFormat("en-US", optionsDay).format(baseDate);
   const timeStartToDisplay = convert12to24(baseDate.toLocaleTimeString());
   const timeEndToDisplay = convert12to24(
-    new Date(endTime).toLocaleTimeString()
+    new Date(timeEnd).toLocaleTimeString()
   );
-  const earningsToDisplay = countDayEarnings({ startTime, endTime });
-  const workingHours = countDayHours({ startTime, endTime });
+  const earningsToDisplay = countDayEarnings({ timeStart, timeEnd });
+  const workingHours = countDayHours({ timeStart, timeEnd });
 
   return {
     num,

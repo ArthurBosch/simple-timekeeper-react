@@ -33,11 +33,11 @@ const DeleteModule = () => {
   const dispatch = useDispatch();
   const container = useRef();
   if (activeShiftInfo) {
-    const { startTime, endTime } = activeShiftInfo;
+    const { timeStart, timeEnd } = activeShiftInfo;
 
-    const shiftInfoDate = new Date(startTime).toLocaleDateString();
-    const shiftInfoStartTime = new Date(startTime).toLocaleTimeString();
-    const shiftInfoEndTime = new Date(endTime).toLocaleTimeString();
+    const shiftInfoDate = new Date(timeStart).toLocaleDateString();
+    const shiftInfotimeStart = new Date(timeStart).toLocaleTimeString();
+    const shiftInfotimeEnd = new Date(timeEnd).toLocaleTimeString();
 
     const closeModule = (e) => {
       if (e.target.closest("#deleteModule")) return;
@@ -76,7 +76,7 @@ const DeleteModule = () => {
               {shiftInfoDate}
             </span>
             <span className="delete-module--shift-info-start">
-              {shiftInfoStartTime} - {shiftInfoEndTime}
+              {shiftInfotimeStart} - {shiftInfotimeEnd}
             </span>
             <div className="controls-container">
               <button

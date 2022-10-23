@@ -4,13 +4,25 @@ import { PORT } from "../vars";
 export const fetchShifts = createAsyncThunk(
   "shifts/fetchShifts",
   async function (_, { rejectWithValue }) {
+    const token = JSON.parse(localStorage.getItem("token"));
     try {
-      const response = await fetch(`${PORT}/shift`);
+      const response = await fetch(`${PORT}/shift`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error("Server Error!");
       }
       const data = await response.json();
-      return data.reverse();
+
+      const formattedData = data.map((obj) => {
+        return {
+          timeStart: obj.timestart,
+          timeEnd: obj.timeend,
+        };
+      });
+      return formattedData.reverse();
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -19,21 +31,24 @@ export const fetchShifts = createAsyncThunk(
 
 export const setNewShift = createAsyncThunk(
   "shifts/setNewShift",
-  async function (_, { rejectWithValue, dispatch }) {
+  async function (workplace, { rejectWithValue, dispatch }) {
+    console.log(workplace);
     let newShift = "";
-    let newID = new Date().getTime();
 
     newShift = {
-      id: newID,
-      startTime: new Date().toISOString(),
-      endTime: "",
+      workplaceId: workplace.id,
+      timeStart: new Date().toISOString(),
+      wage: workplace.wage,
     };
 
+    const token = JSON.parse(localStorage.getItem("token"));
+
     try {
-      const response = await fetch(`${PORT}/shifts`, {
+      const response = await fetch(`${PORT}/shift`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(newShift),
       });
@@ -42,7 +57,9 @@ export const setNewShift = createAsyncThunk(
         throw new Error("Unable to start shift");
       }
 
-      dispatch(createNewShift(newShift));
+      const data = await response.json();
+
+      dispatch(createNewShift({ ...newShift, id: data.id }));
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -52,12 +69,18 @@ export const setNewShift = createAsyncThunk(
 export const finishShift = createAsyncThunk(
   "shifts/finishShift",
   async function (activeShift, { rejectWithValue, dispatch }) {
-    const shift = { ...activeShift, endTime: new Date().toISOString() };
+    console.log(activeShift);
+    const shift = {
+      ...activeShift,
+      timeEnd: new Date().toISOString(),
+    };
+    const token = JSON.parse(localStorage.getItem("token"));
     try {
-      const response = await fetch(`${PORT}/shifts/${shift.id}`, {
+      const response = await fetch(`${PORT}/shift/${shift.id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(shift),
       });

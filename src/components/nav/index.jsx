@@ -54,10 +54,10 @@ const Navigation = () => {
               </a>
             </li>
             <li className="nav-li">
-              <a className="nav-link">
+              <Link to="/settings" className="nav-link">
                 <img src={settings} alt="settings icon" />
                 Settings
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

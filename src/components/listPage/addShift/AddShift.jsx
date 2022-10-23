@@ -54,8 +54,8 @@ const AddShift = () => {
     const id = new Date().getTime();
     const shiftToSubmit = {
       id: id,
-      startTime: timeStart,
-      endTime: timeEnd,
+      timeStart: timeStart,
+      timeEnd: timeEnd,
     };
     dispatch(asyncAddShift(shiftToSubmit));
     closeModule();

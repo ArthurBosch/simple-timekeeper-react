@@ -12,12 +12,12 @@ import { asyncEditShift } from "../../../store-toolkit/shiftSlice";
 
 const EditShift = () => {
   const { activeShiftInfo } = useSelector((state) => state.shiftInfo);
-  const { startTime, endTime } = activeShiftInfo;
+  const { timeStart, timeEnd } = activeShiftInfo;
   const [shiftInfo, setShiftInfo] = useState({
     id: activeShiftInfo.id,
-    date: new Date(startTime).toLocaleDateString("en-CA"),
-    startTime: convert12to24(new Date(startTime).toLocaleTimeString()),
-    endTime: convert12to24(new Date(endTime).toLocaleTimeString()),
+    date: new Date(timeStart).toLocaleDateString("en-CA"),
+    timeStart: convert12to24(new Date(timeStart).toLocaleTimeString()),
+    timeEnd: convert12to24(new Date(timeEnd).toLocaleTimeString()),
   });
 
   const container = useRef();
@@ -46,15 +46,15 @@ const EditShift = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const timeStartString = `${shiftInfo.date} ${shiftInfo.startTime}`;
-    const timeEndString = `${shiftInfo.date} ${shiftInfo.endTime}`;
-    const startTime = new Date(timeStartString).toISOString();
-    const endTime = new Date(timeEndString).toISOString();
+    const timeStartString = `${shiftInfo.date} ${shiftInfo.timeStart}`;
+    const timeEndString = `${shiftInfo.date} ${shiftInfo.timeEnd}`;
+    const timeStart = new Date(timeStartString).toISOString();
+    const timeEnd = new Date(timeEndString).toISOString();
 
     const shift = {
       id: shiftInfo.id,
-      startTime: startTime,
-      endTime: endTime,
+      timeStart: timeStart,
+      timeEnd: timeEnd,
     };
     dispatch(asyncEditShift(shift));
     dispatch(updateActiveShiftInfo(shift));
@@ -94,11 +94,11 @@ const EditShift = () => {
               type="time"
               name="time-start"
               className="input-time"
-              defaultValue={shiftInfo.startTime}
+              defaultValue={shiftInfo.timeStart}
               onChange={(e) => {
                 setShiftInfo({
                   ...shiftInfo,
-                  startTime: e.target.value,
+                  timeStart: e.target.value,
                 });
               }}
             ></input>
@@ -109,11 +109,11 @@ const EditShift = () => {
               type="time"
               name="time-end"
               className="input-time"
-              defaultValue={shiftInfo.endTime}
+              defaultValue={shiftInfo.timeEnd}
               onChange={(e) => {
                 setShiftInfo({
                   ...shiftInfo,
-                  endTime: e.target.value,
+                  timeEnd: e.target.value,
                 });
               }}
             ></input>

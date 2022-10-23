@@ -18,6 +18,8 @@ import { fetchShifts } from "./store-toolkit/shiftSlice";
 import { checkLocalActiveShift } from "./store-toolkit/shiftSlice";
 import Auth from "./components/authPage/Auth";
 import CreateWorkplace from "./components/workplaceControllers/CreateWorkplacePage";
+import { checkAuth, checkWorkplaces } from "./store-toolkit/userSlice";
+import SettingsPage from "./components/settingsPage/SettingsPage";
 
 export const AppUIContext = createContext(null);
 
@@ -27,6 +29,8 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchShifts());
+    dispatch(checkAuth());
+    dispatch(checkWorkplaces());
   }, [dispatch]);
 
   //UI STATE
@@ -59,6 +63,7 @@ function App() {
               />
               <Route path="/list" element={<ListPage />} />
               <Route path="/createWorkplace" element={<CreateWorkplace />} />
+              <Route path="/settings" element={<SettingsPage />} />
             </Routes>
             {status === "loading" && <Loader />}
           </div>

@@ -19,7 +19,10 @@ const ShiftPage = () => {
     changePageName("My Shift");
   }, []);
 
-  const startTime = new Date(activeShift.startTime).toLocaleTimeString();
+  let timeStart = "00:00";
+  if (activeShift) {
+    timeStart = new Date(activeShift.timeStart).toLocaleTimeString();
+  }
 
   const checkLocalTime = () => {
     const time = JSON.parse(localStorage.getItem("shiftTime"));
@@ -33,12 +36,14 @@ const ShiftPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setInterval(() => {
-      const delta = Date.now() - new Date(activeShift.startTime).getTime();
-      const time = milisecondsToHours(delta);
-      setEarned(countEarningsByMiliSeconds(delta));
-      setShiftTime(time);
-    }, 1000);
+    if (activeShift) {
+      setInterval(() => {
+        const delta = Date.now() - new Date(activeShift.timeStart).getTime();
+        const time = milisecondsToHours(delta);
+        setEarned(countEarningsByMiliSeconds(delta));
+        setShiftTime(time);
+      }, 1000);
+    }
   });
 
   const pseudoChart = {
@@ -59,7 +64,7 @@ const ShiftPage = () => {
   return (
     <div className="main" id="main">
       <div className="shift-time">
-        <span className="shift-time--start">{startTime}</span>
+        <span className="shift-time--start">{timeStart}</span>
       </div>
       <div className="shift-chart">
         <div className="pseudo-chart" style={pseudoChart}></div>
