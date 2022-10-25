@@ -88,7 +88,7 @@ const HomeMain = ({ toggleShiftInfo }) => {
       <button
         className="start-shift-button"
         onClick={() => {
-          dispatch(setNewShift(activeWorkplaceState));
+          dispatch(setNewShift(activeWorkplaceState, ...Array(3)));
         }}
       >
         Start Shift

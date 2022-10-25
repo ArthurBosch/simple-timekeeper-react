@@ -18,7 +18,7 @@
   left: 50%;
   transform: translate(-50%, 0);
   width: 90%;
-  height: 50vh;
+  height: 60vh;
   z-index: 99999;
   background: linear-gradient(
     90deg,
@@ -57,7 +57,9 @@
     font-weight: 700;
   }
 
-  input {
+  input,
+  select {
+    box-sizing: border-box;
     width: 50%;
     height: 40px;
     border-radius: 5px;

@@ -9,16 +9,42 @@ import {
   updateActiveShiftInfo,
 } from "../../../store-toolkit/shiftInfoSlice";
 import { asyncEditShift } from "../../../store-toolkit/shiftSlice";
+import Select from "react-select";
 
 const EditShift = () => {
   const { activeShiftInfo } = useSelector((state) => state.shiftInfo);
+  const { workplaces } = useSelector((state) => state.userInfo);
   const { timeStart, timeEnd } = activeShiftInfo;
   const [shiftInfo, setShiftInfo] = useState({
     id: activeShiftInfo.id,
     date: new Date(timeStart).toLocaleDateString("en-CA"),
     timeStart: convert12to24(new Date(timeStart).toLocaleTimeString()),
     timeEnd: convert12to24(new Date(timeEnd).toLocaleTimeString()),
+    workplace: workplaces.find(
+      (workplace) => workplace.id === activeShiftInfo.workplaceId
+    ),
   });
+
+  const selectOptions = workplaces.map((workplace) => {
+    return {
+      value: workplace.name,
+      label: workplace.name,
+    };
+  });
+
+  const activeOption = selectOptions.find(
+    (option) => option.value === shiftInfo.workplace.name
+  );
+
+  const handleSelect = (e) => {
+    const chosenWorkplace = workplaces.find(
+      (workplace) => workplace.name === e.value
+    );
+    setShiftInfo({
+      ...shiftInfo,
+      workplace: chosenWorkplace,
+    });
+  };
 
   const container = useRef();
   const dispatch = useDispatch();
@@ -50,14 +76,26 @@ const EditShift = () => {
     const timeEndString = `${shiftInfo.date} ${shiftInfo.timeEnd}`;
     const timeStart = new Date(timeStartString).toISOString();
     const timeEnd = new Date(timeEndString).toISOString();
+    console.log(
+      "shiftInfo(localState) coming from EditShift component => ",
+      shiftInfo
+    );
+    console.log(
+      "activeShiftInfo(redux) coming from EditShift component => ",
+      activeShiftInfo
+    );
 
     const shift = {
       id: shiftInfo.id,
       timeStart: timeStart,
       timeEnd: timeEnd,
+      wage: shiftInfo.workplace.basewage,
+      workplaceId: shiftInfo.workplace.id,
     };
     dispatch(asyncEditShift(shift));
-    dispatch(updateActiveShiftInfo(shift));
+    dispatch(
+      updateActiveShiftInfo({ ...shift, userid: activeShiftInfo.userid })
+    );
     closeModule();
   };
   return (
@@ -117,6 +155,24 @@ const EditShift = () => {
                 });
               }}
             ></input>
+          </div>
+          <div className="edit-shift--input-container">
+            <label htmlFor="workplace-select">Workplace:</label>
+            {/* <select
+              onChange={(e) => {
+                handleSelect(e);
+              }}
+              defaultValue={shiftInfo.workplace}
+            >
+              {renderOptions()}
+            </select> */}
+            <Select
+              options={selectOptions}
+              defaultValue={activeOption}
+              onChange={(e) => {
+                handleSelect(e);
+              }}
+            />
           </div>
           <div className="edit-shift--controls">
             <button

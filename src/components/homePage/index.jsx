@@ -22,7 +22,7 @@ const HomePage = () => {
       }}
     >
       <HomeMain shiftInfo={shiftInfo} toggleShiftInfo={toggleShiftInfo} />
-      {/* <HomeFooter shiftInfo={shiftInfo} toggleShiftInfo={toggleShiftInfo} /> */}
+      <HomeFooter shiftInfo={shiftInfo} toggleShiftInfo={toggleShiftInfo} />
     </div>
   );
 };

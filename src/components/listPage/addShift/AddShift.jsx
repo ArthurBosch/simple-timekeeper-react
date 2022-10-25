@@ -1,7 +1,7 @@
 import "./addShift.scss";
 
 import { useState, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   toggleAddModuleStatus,
   toggleShiftInfo,
@@ -13,11 +13,36 @@ const AddShift = () => {
   const dispatch = useDispatch();
   const container = useRef();
 
+  const { workplaces, activeWorkplace } = useSelector(
+    (state) => state.userInfo
+  );
+
+  const renderOptions = () => {
+    return workplaces.map((workplace) => {
+      return (
+        <option value={workplace.name} key={workplace.id}>
+          {workplace.name}
+        </option>
+      );
+    });
+  };
+
   const [shift, updateShift] = useState({
     date: new Date().toLocaleDateString("en-CA"),
     timeStart: convert12to24(new Date().toLocaleTimeString()),
     timeFinish: convert12to24(new Date().toLocaleTimeString()),
+    workplace: activeWorkplace,
   });
+
+  const handleSelect = (e) => {
+    const chosenWorkplace = workplaces.find(
+      (workplace) => workplace.name === e.target.value
+    );
+    updateShift({
+      ...shift,
+      workplace: chosenWorkplace,
+    });
+  };
 
   useEffect(() => {
     openModule();
@@ -51,11 +76,11 @@ const AddShift = () => {
     const timeEndString = `${shift.date} ${shift.timeFinish}`;
     const timeStart = new Date(timeStartString).toISOString();
     const timeEnd = new Date(timeEndString).toISOString();
-    const id = new Date().getTime();
     const shiftToSubmit = {
-      id: id,
       timeStart: timeStart,
       timeEnd: timeEnd,
+      workplaceId: shift.workplace.id,
+      wage: shift.workplace.wage,
     };
     dispatch(asyncAddShift(shiftToSubmit));
     closeModule();
@@ -123,6 +148,16 @@ const AddShift = () => {
                 });
               }}
             ></input>
+          </div>
+          <div className="add-shift--input-container">
+            <label htmlFor="workplace-select">Workplace:</label>
+            <select
+              onChange={(e) => {
+                handleSelect(e);
+              }}
+            >
+              {renderOptions()}
+            </select>
           </div>
           <div className="add-shift--controls">
             <button

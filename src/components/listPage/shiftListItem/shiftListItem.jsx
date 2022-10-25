@@ -6,10 +6,10 @@ import { toggleShiftInfo } from "../../../store-toolkit/shiftInfoSlice";
 const ShiftListItem = ({ props, scrollToBottom }) => {
   const container = useRef(null);
   const dispatch = useDispatch();
-  let { timeStart, timeEnd } = props;
+  let { timeStart, timeEnd, wage } = props;
   if (!timeEnd) timeEnd = new Date().toISOString();
   const { num, day, timeStartToDisplay, timeEndToDisplay } =
-    getFormattedDataFromDay(timeStart, timeEnd, "short");
+    getFormattedDataFromDay(timeStart, timeEnd, "short", wage);
 
   const makeActive = (e) => {
     const prev = document.querySelector(".shift-list--item-active");

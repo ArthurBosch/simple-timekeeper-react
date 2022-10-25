@@ -5,7 +5,10 @@ export const getThisWeek = (data) => {
   const weekdays = lastSeven.map(
     (shift) => new Array(new Date(shift.timeStart).toString().split(" "))
   );
-  const lastSunday = weekdays.find((day) => day[0][0] === "Sun");
+  let lastSunday = weekdays.find((day) => day[0][0] === "Sun");
+  if (!lastSunday) {
+    lastSunday = weekdays[0];
+  }
   const lastSundayDate = parseInt(lastSunday[0][2]);
   const lastSundayDateObject = lastSeven.find(
     (shift) => new Date(shift.timeStart).getDate() === lastSundayDate
@@ -107,10 +110,9 @@ export const convert12to24 = (timeStr) => {
   return `${hours}:${minutes}`;
 };
 
-export const getFormattedDataFromDay = (timeStart, timeEnd, weekday) => {
-  console.log(timeStart, timeEnd, weekday);
+export const getFormattedDataFromDay = (timeStart, timeEnd, weekday, wage) => {
   if (!timeEnd) timeEnd = new Date().toISOString();
-  const baseDate = new Date(timeStart);
+  let baseDate = new Date(timeStart);
   const optionsDay = { weekday: weekday };
   const num = baseDate.getDate();
   const optionsMonth = { month: "short" };
@@ -120,7 +122,7 @@ export const getFormattedDataFromDay = (timeStart, timeEnd, weekday) => {
   const timeEndToDisplay = convert12to24(
     new Date(timeEnd).toLocaleTimeString()
   );
-  const earningsToDisplay = countDayEarnings({ timeStart, timeEnd });
+  const earningsToDisplay = countDayEarnings({ timeStart, timeEnd }, wage);
   const workingHours = countDayHours({ timeStart, timeEnd });
 
   return {

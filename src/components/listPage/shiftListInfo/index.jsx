@@ -16,7 +16,7 @@ const ShiftListInfo = () => {
 
   const dispatch = useDispatch();
 
-  let { timeStart, timeEnd } = activeShiftInfo;
+  let { timeStart, timeEnd, wage } = activeShiftInfo;
   const {
     num,
     month,
@@ -25,7 +25,7 @@ const ShiftListInfo = () => {
     timeEndToDisplay,
     earningsToDisplay,
     workingHours,
-  } = getFormattedDataFromDay(timeStart, timeEnd, "long");
+  } = getFormattedDataFromDay(timeStart, timeEnd, "long", wage);
 
   return (
     <div

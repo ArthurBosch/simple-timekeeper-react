@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { PORT } from "../vars";
+const token = JSON.parse(localStorage.getItem("token"));
 
 export const fetchShifts = createAsyncThunk(
   "shifts/fetchShifts",
@@ -17,9 +18,12 @@ export const fetchShifts = createAsyncThunk(
       const data = await response.json();
 
       const formattedData = data.map((obj) => {
+        const { timestart, timeend, workplaceid, ...objToSend } = obj;
         return {
+          ...objToSend,
           timeStart: obj.timestart,
           timeEnd: obj.timeend,
+          workplaceId: obj.workplaceid,
         };
       });
       return formattedData.reverse();
@@ -32,7 +36,6 @@ export const fetchShifts = createAsyncThunk(
 export const setNewShift = createAsyncThunk(
   "shifts/setNewShift",
   async function (workplace, { rejectWithValue, dispatch }) {
-    console.log(workplace);
     let newShift = "";
 
     newShift = {
@@ -40,8 +43,6 @@ export const setNewShift = createAsyncThunk(
       timeStart: new Date().toISOString(),
       wage: workplace.wage,
     };
-
-    const token = JSON.parse(localStorage.getItem("token"));
 
     try {
       const response = await fetch(`${PORT}/shift`, {
@@ -69,12 +70,10 @@ export const setNewShift = createAsyncThunk(
 export const finishShift = createAsyncThunk(
   "shifts/finishShift",
   async function (activeShift, { rejectWithValue, dispatch }) {
-    console.log(activeShift);
     const shift = {
       ...activeShift,
       timeEnd: new Date().toISOString(),
     };
-    const token = JSON.parse(localStorage.getItem("token"));
     try {
       const response = await fetch(`${PORT}/shift/${shift.id}`, {
         method: "PATCH",
@@ -98,10 +97,11 @@ export const asyncEditShift = createAsyncThunk(
   "shifts/editShift",
   async function (shift, { rejectWithValue, dispatch }) {
     try {
-      const response = await fetch(`${PORT}/shifts/${shift.id}`, {
+      const response = await fetch(`${PORT}/shift/${shift.id}`, {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(shift),
       });
@@ -119,9 +119,10 @@ export const asyncDeleteShift = createAsyncThunk(
   "shifts/deleteShift",
   async function (shift, { rejectWithValue, dispatch }) {
     try {
-      const response = await fetch(`${PORT}/shifts/${shift.id}`, {
+      const response = await fetch(`${PORT}/shift/${shift.id}`, {
         method: "DELETE",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-type": "application/json",
         },
         body: JSON.stringify(shift),
@@ -142,10 +143,11 @@ export const asyncAddShift = createAsyncThunk(
   "shifts/addShift",
   async function (shift, { rejectWithValue, dispatch }) {
     try {
-      const response = await fetch(`${PORT}/shifts`, {
+      const response = await fetch(`${PORT}/shift`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(shift),
       });
@@ -154,7 +156,17 @@ export const asyncAddShift = createAsyncThunk(
         throw new Error("Unable to add shift");
       }
 
-      dispatch(addNewShift(shift));
+      const data = await response.json();
+      const { timestart, timeend, workplaceid, ...objToSend } = data;
+
+      dispatch(
+        addNewShift({
+          ...objToSend,
+          timeStart: data.timestart,
+          timeEnd: data.timeend,
+          workplaceId: data.workplaceid,
+        })
+      );
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -187,7 +199,6 @@ const shiftsSlice = createSlice({
         (shift) => shift.id === action.payload.id
       );
       state.shifts[shiftIndex] = action.payload;
-      console.log(shiftIndex);
       localStorage.removeItem("activeShift");
       state.activeShift = null;
       state.activeShiftStatus = null;
@@ -210,7 +221,6 @@ const shiftsSlice = createSlice({
         (shift) => shift.id !== action.payload.id
       );
       state.shifts = newShifts;
-      console.log(newShifts);
     },
     addNewShift(state, action) {
       state.shifts.unshift(action.payload);
