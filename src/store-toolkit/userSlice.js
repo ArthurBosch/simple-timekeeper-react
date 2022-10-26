@@ -133,7 +133,7 @@ const userSlice = createSlice({
     },
     getWorkplaces(state, action) {
       state.workplaces = [...action.payload];
-      if (!state.workplaces) {
+      if (state.workplaces.length === 0) {
         return;
       }
       state.activeWorkplace = state.workplaces[0];
