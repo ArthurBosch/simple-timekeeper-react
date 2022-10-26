@@ -110,6 +110,7 @@ const userSlice = createSlice({
     token: null,
     status: null,
     error: null,
+    noWorkplace: true,
     workplaces: [],
     activeWorkplace: null,
   },
@@ -128,10 +129,15 @@ const userSlice = createSlice({
     },
     createWorkplace(state, action) {
       state.workplaces.push({ ...action.payload });
+      state.noWorkplace = false;
     },
     getWorkplaces(state, action) {
       state.workplaces = [...action.payload];
+      if (!state.workplaces) {
+        return;
+      }
       state.activeWorkplace = state.workplaces[0];
+      state.noWorkplace = false;
     },
     checkAuth(state) {
       const token = localStorage.getItem("token");

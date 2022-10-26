@@ -37,7 +37,7 @@ function App() {
   const [menuState, toggleMenu] = useState(false);
   const { status } = useSelector((state) => state.shifts);
   const { activeShiftStatus } = useSelector((state) => state.shifts);
-  const { loggedIn } = useSelector((state) => state.userInfo);
+  const { loggedIn, noWorkplace } = useSelector((state) => state.userInfo);
   useEffect(() => {
     dispatch(checkLocalActiveShift());
   }, []);
@@ -66,6 +66,7 @@ function App() {
               <Route path="/settings" element={<SettingsPage />} />
             </Routes>
             {status === "loading" && <Loader />}
+            {noWorkplace && <CreateWorkplace />}
           </div>
         </Router>
       </AppUIContext.Provider>
