@@ -12,6 +12,7 @@ import {
   Navigate,
   Route,
   Routes,
+  useNavigate,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchShifts } from "./store-toolkit/shiftSlice";
@@ -59,14 +60,23 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={activeShiftStatus ? <ShiftPage /> : <HomePage />}
+                element={
+                  noWorkplace ? (
+                    <CreateWorkplace />
+                  ) : activeShiftStatus ? (
+                    <ShiftPage />
+                  ) : (
+                    <HomePage />
+                  )
+                }
               />
               <Route path="/list" element={<ListPage />} />
               <Route path="/createWorkplace" element={<CreateWorkplace />} />
               <Route path="/settings" element={<SettingsPage />} />
             </Routes>
             {status === "loading" && <Loader />}
-            {noWorkplace && <CreateWorkplace />}
+            {/* {noWorkplace && <CreateWorkplace />} */}
+            {/* {noWorkplace && <Navigate to="/createWorkplace" />} */}
           </div>
         </Router>
       </AppUIContext.Provider>
