@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "./signup.scss";
 import { asyncSignUp } from "../../../store-toolkit/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { authError } = useSelector((state) => state.userInfo);
   const [signUpData, setSignUpData] = useState({
     name: "",
     email: "",
@@ -40,6 +41,7 @@ const SignUp = () => {
         >
           <div className="signIn-input-container">
             <input
+              className={authError ? "input-error" : "auth-input"}
               type="text"
               placeholder="name"
               onChange={(e) => {
@@ -47,6 +49,7 @@ const SignUp = () => {
               }}
             />
             <input
+              className={authError ? "input-error" : "auth-input"}
               type="email"
               placeholder="email"
               autoComplete="on"
@@ -56,6 +59,7 @@ const SignUp = () => {
             />
             <input
               type="password"
+              className={authError ? "input-error" : "auth-input"}
               placeholder="password"
               onChange={(e) => {
                 setSignUpData({ ...signUpData, password: e.target.value });

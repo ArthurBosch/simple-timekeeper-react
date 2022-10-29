@@ -1,0 +1,10 @@
+@import "../../vars.module.scss";
+
+.button-logout {
+  width: 200px;
+  height: 40px;
+  border: 1px solid $red-delete;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}

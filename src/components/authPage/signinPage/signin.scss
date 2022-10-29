@@ -33,16 +33,6 @@
   }
 }
 
-.signIn-input-container {
-  input {
-    display: block;
-    height: 50px;
-    width: 300px;
-    border: none;
-    border-bottom: 1px solid $green-dark;
-  }
-}
-
 .button-container {
   width: 100%;
   display: flex;
@@ -51,4 +41,20 @@
 
 .signIn-h1 {
   width: 100%;
+}
+
+.input-error {
+  display: block;
+  height: 50px;
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid $red-delete;
+}
+
+.auth-input {
+  display: block;
+  height: 50px;
+  width: 300px;
+  border: none;
+  border-bottom: 1px solid $green-dark;
 }

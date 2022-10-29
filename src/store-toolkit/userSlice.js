@@ -110,6 +110,7 @@ const userSlice = createSlice({
     token: null,
     status: null,
     error: null,
+    authError: null,
     noWorkplace: true,
     workplaces: [],
     activeWorkplace: null,
@@ -126,6 +127,12 @@ const userSlice = createSlice({
       state.token = action.payload.token;
       state.loggedIn = true;
       state.error = false;
+    },
+    signOut(state) {
+      localStorage.removeItem("token");
+      state.loggedIn = false;
+      state.token = null;
+      state.activeWorkplace = null;
     },
     createWorkplace(state, action) {
       state.workplaces.push({ ...action.payload });
@@ -167,11 +174,15 @@ const userSlice = createSlice({
       state.status = "resolved";
       state.error = null;
     },
+    [asyncSingIn.rejected]: (state, action) => {
+      state.status = "rejected";
+      state.error = action.payload;
+      state.authError = action.payload;
+    },
     [asyncSignUp.rejected]: setError,
-    [asyncSingIn.rejected]: setError,
   },
 });
 const { signUp, signIn, createWorkplace, getWorkplaces } = userSlice.actions;
-export const { checkAuth, changeActiveWorkplace } = userSlice.actions;
+export const { checkAuth, changeActiveWorkplace, signOut } = userSlice.actions;
 
 export default userSlice.reducer;

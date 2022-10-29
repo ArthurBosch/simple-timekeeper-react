@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { asyncSingIn } from "../../../store-toolkit/userSlice";
 import "./signin.scss";
 
-const SignIn = (props) => {
+const SignIn = () => {
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
+
+  const { authError } = useSelector((state) => state.userInfo);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ const SignIn = (props) => {
         >
           <div className="signIn-input-container">
             <input
+              className={authError ? "input-error" : "auth-input"}
               type="email"
               placeholder="email"
               autoComplete="on"
@@ -36,6 +39,7 @@ const SignIn = (props) => {
               }}
             />
             <input
+              className={authError ? "input-error" : "auth-input"}
               type="password"
               autoComplete="on"
               placeholder="password"
