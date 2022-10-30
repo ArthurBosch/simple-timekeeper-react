@@ -14,7 +14,7 @@ const User = () => {
     changePageName("User");
   }, []);
   return (
-    <main>
+    <main className="user-main">
       <button
         onClick={() => {
           logOut();

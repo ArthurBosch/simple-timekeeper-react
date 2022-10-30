@@ -167,6 +167,7 @@ const EditShift = () => {
               {renderOptions()}
             </select> */}
             <Select
+              className="select-input"
               options={selectOptions}
               defaultValue={activeOption}
               onChange={(e) => {
