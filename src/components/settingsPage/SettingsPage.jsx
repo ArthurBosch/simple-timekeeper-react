@@ -22,6 +22,7 @@ const SettingsPage = () => {
           <Link to="/contact">Contact Me</Link>
         </li>
       </ul>
+      <div className="errors"></div>
     </main>
   );
 };

@@ -69,7 +69,6 @@ export const asyncCreateWorkplace = createAsyncThunk(
 
       const data = await res.json();
       dispatch(createWorkplace(data));
-      dispatch(changeActiveWorkplace(data));
     } catch (err) {
       return rejectWithValue(err.message);
     }
@@ -138,6 +137,7 @@ const userSlice = createSlice({
     createWorkplace(state, action) {
       state.workplaces.push({ ...action.payload });
       state.noWorkplace = false;
+      state.activeWorkplace = action.payload;
     },
     getWorkplaces(state, action) {
       state.workplaces = [...action.payload];
