@@ -16,12 +16,11 @@ const CreateWorkplace = () => {
     currency: "CAD",
   });
 
-  const warningConainer = useRef();
+  const warningContainer = useRef();
   const workplaceWrapper = useRef();
 
   const toggleWarning = () => {
-    warningConainer.current.classList.toggle("_hidden");
-    workplaceWrapper.current.classList.toggle("_scrollable");
+    warningContainer.current.classList.toggle("_hidden");
   };
 
   const handleSubmit = (e) => {
@@ -30,7 +29,7 @@ const CreateWorkplace = () => {
     navigate("/");
   };
   return (
-    <main ref={workplaceWrapper} className="workplace-wrapper">
+    <main ref={workplaceWrapper} className="workplace-wrapper _scrollable">
       <section className="workplace-intro--section">
         <h1>Workplace Description</h1>
         <p>
@@ -45,7 +44,7 @@ const CreateWorkplace = () => {
           </button>
         </p>
         <div
-          ref={warningConainer}
+          ref={warningContainer}
           className="workplace-intro--warning-block _hidden"
         >
           <h4>If you wish to skip this step:</h4>

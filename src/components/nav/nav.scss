@@ -26,11 +26,12 @@
 
   ul {
     list-style: none;
-    margin-top: 240px;
+    margin-top: 15vh;
+    padding-left: 2vh;
 
     li {
-      padding: 15px;
-      width: 70%;
+      padding: 2vh;
+      width: 90%;
       border-radius: 5px;
       transition: background-color 0.5s ease-in;
 

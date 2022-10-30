@@ -9,9 +9,41 @@ import { useContext } from "react";
 import { AppUIContext } from "../../App";
 
 import "./nav.scss";
+import { useState } from "react";
 
 const Navigation = () => {
   const { menuState, toggleMenuFunc } = useContext(AppUIContext);
+  const [touchStart, setTouchStart] = useState({
+    x: null,
+    y: null,
+  });
+
+  const [touchEnd, setTouchEnd] = useState({
+    x: null,
+    y: null,
+  });
+
+  const handleTouchStart = (e) => {
+    setTouchStart({
+      y: e.targetTouches[0].clientY,
+      x: e.targetTouches[0].clientX,
+    });
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd({
+      y: e.targetTouches[0].clientY,
+      x: e.targetTouches[0].clientX,
+    });
+  };
+
+  const handleTouchEnd = () => {
+    if (touchEnd.x - 75 > touchStart.x) {
+      toggleMenuFunc();
+      return;
+    }
+  };
+
   return (
     <div className="overlay-container">
       <div
@@ -20,6 +52,15 @@ const Navigation = () => {
           if (e.target.closest("ul")) toggleMenuFunc();
           if (e.target.closest("#navigation")) return;
           toggleMenuFunc();
+        }}
+        onTouchStart={(e) => {
+          handleTouchStart(e);
+        }}
+        onTouchMove={(e) => {
+          handleTouchMove(e);
+        }}
+        onTouchEnd={() => {
+          handleTouchEnd();
         }}
         className={menuState ? "overlay" : ""}
       >

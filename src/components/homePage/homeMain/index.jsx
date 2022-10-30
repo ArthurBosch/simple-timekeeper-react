@@ -2,12 +2,24 @@ import "./homeMain.css";
 import { setNewShift } from "../../../store-toolkit/shiftSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { AppUIContext } from "../../../App";
+
 import { changeActiveWorkplace } from "../../../store-toolkit/userSlice";
 
 const HomeMain = ({ toggleShiftInfo }) => {
+  const { toggleMenuFunc } = useContext(AppUIContext);
   const dispatch = useDispatch();
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
+
+  const [touchStart, setTouchStart] = useState({
+    x: null,
+    y: null,
+  });
+
+  const [touchEnd, setTouchEnd] = useState({
+    x: null,
+    y: null,
+  });
   const { workplaces, activeWorkplace } = useSelector(
     (state) => state.userInfo
   );
@@ -39,18 +51,38 @@ const HomeMain = ({ toggleShiftInfo }) => {
   };
 
   const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientY);
+    setTouchStart({
+      y: e.targetTouches[0].clientY,
+      x: e.targetTouches[0].clientX,
+    });
   };
 
   const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientY);
+    setTouchEnd({
+      y: e.targetTouches[0].clientY,
+      x: e.targetTouches[0].clientX,
+    });
   };
 
   const handleTouchEnd = () => {
-    if (touchStart < touchEnd) {
-      toggleShiftInfo(false);
-    } else {
+    if (touchStart.y - 75 > touchEnd.y) {
       toggleShiftInfo(true);
+      return;
+    }
+
+    if (touchEnd.y - 75 > touchStart.y) {
+      toggleShiftInfo(false);
+      return;
+    }
+
+    if (touchStart.x - 75 > touchEnd.x) {
+      toggleMenuFunc();
+      return;
+    }
+
+    if (touchEnd.x - 75 > touchStart.x) {
+      toggleMenuFunc();
+      return;
     }
   };
 
@@ -64,7 +96,7 @@ const HomeMain = ({ toggleShiftInfo }) => {
       onTouchMove={(e) => {
         handleTouchMove(e);
       }}
-      onTouchEnd={(e) => {
+      onTouchEnd={() => {
         handleTouchEnd();
       }}
     >

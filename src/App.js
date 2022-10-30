@@ -58,8 +58,8 @@ function App() {
       >
         <Router>
           <div className="App">
-            <Header />
-            <Navigation />
+            {!noWorkplace && <Header />}
+            {!noWorkplace && <Navigation />}
             <Routes>
               <Route
                 path="/"
