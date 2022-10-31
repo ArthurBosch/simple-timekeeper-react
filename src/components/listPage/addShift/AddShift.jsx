@@ -75,9 +75,6 @@ const AddShift = () => {
     const timeStartString = `${shift.date}T${shift.timeStart}:00`;
     console.log(timeStartString);
     const timeEndString = `${shift.date}T${shift.timeFinish}:00`;
-    // let timeStartObj = new Date(timeStartString);
-    // if (timeStartObj === NaN) {
-    // }
     const timeStart = new Date(timeStartString).toISOString();
     const timeEnd = new Date(timeEndString).toISOString();
     const shiftToSubmit = {

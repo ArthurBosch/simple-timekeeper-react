@@ -72,8 +72,8 @@ const EditShift = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const timeStartString = `${shiftInfo.date} ${shiftInfo.timeStart}`;
-    const timeEndString = `${shiftInfo.date} ${shiftInfo.timeEnd}`;
+    const timeStartString = `${shiftInfo.date}T${shiftInfo.timeStart}:00`;
+    const timeEndString = `${shiftInfo.date}T${shiftInfo.timeEnd}:00`;
     const timeStart = new Date(timeStartString).toISOString();
     const timeEnd = new Date(timeEndString).toISOString();
     console.log(
