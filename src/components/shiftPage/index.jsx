@@ -42,35 +42,24 @@ const ShiftPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setInterval(() => {
-      const delta = Date.now() - new Date(activeShift.timeStart).getTime();
-      const time = milisecondsToHours(delta);
-      // setSeconds(Math.floor(delta / 60000));
-      setSeconds(new Date(delta).getSeconds());
-      setEarned(countEarningsByMiliSeconds(delta));
-      setShiftTime(time);
-    }, 1000);
-  }, []);
-
-  // const pseudoChart = {
-  //   position: "absolute",
-  //   top: "-12px",
-  //   display: "flex",
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   border: "7px solid #00B3B3",
-  //   borderRadius: "50%",
-  //   width: "230px",
-  //   height: "230px",
-  //   marginTop: "5px",
-  //   boxShadow: "0px 15px 20px rgba(0, 0, 179, 0.1)",
-  //   strokeDashoffset: "100",
-  // };
+    if (activeShift) {
+      setInterval(() => {
+        const delta = Date.now() - new Date(activeShift.timeStart).getTime();
+        const time = milisecondsToHours(delta);
+        // setSeconds(Math.floor(delta / 60000));
+        setSeconds(new Date(delta).getSeconds());
+        setEarned(countEarningsByMiliSeconds(delta));
+        setShiftTime(time);
+      }, 1000);
+    }
+  }, [activeShift]);
 
   return (
     <div className="main" id="main">
       <div className="shift-time">
         <span className="shift-time--start">{timeStart}</span>
+        <br />
+        <span className="shift-started-span">Shift started</span>
       </div>
 
       <div className="shift-chart">
@@ -92,7 +81,7 @@ const ShiftPage = () => {
         </CircularProgressbarWithChildren>
       </div>
       <div className="shift-controls">
-        <button className="brake-button">Brake</button>
+        {/* <button className="brake-button">Brake</button> */}
         <button
           className="finish-button"
           onClick={() => {

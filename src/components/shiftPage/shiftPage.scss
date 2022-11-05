@@ -10,18 +10,9 @@
   height: 100vh;
 }
 
-// .shift-chart {
-//   position: relative;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   border: 7px solid #0000b3;
-//   border-radius: 50%;
-//   width: 230px;
-//   height: 230px;
-//   margin-top: 5px;
-//   box-shadow: 0px 15px 20px rgba(0, 0, 179, 0.1);
-// }
+.shift-started-span {
+  opacity: 0.7;
+}
 
 .circle-chart {
   position: absolute;
