@@ -58,17 +58,15 @@
   }
 
   input,
-  .select-input {
-    width: 50%;
-    height: 40px;
+  .select {
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    min-width: 50%;
+    background-color: #fff;
+    min-height: 50px;
     border-radius: 5px;
     border: none;
     padding: 0 10px;
-    box-sizing: border-box;
-  }
-
-  .select-input {
-    padding: 0;
   }
 }
 

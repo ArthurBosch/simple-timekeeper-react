@@ -158,14 +158,6 @@ const EditShift = () => {
           </div>
           <div className="edit-shift--input-container">
             <label htmlFor="workplace-select">Workplace:</label>
-            {/* <select
-              onChange={(e) => {
-                handleSelect(e);
-              }}
-              defaultValue={shiftInfo.workplace}
-            >
-              {renderOptions()}
-            </select> */}
             <Select
               className="select-input"
               options={selectOptions}
