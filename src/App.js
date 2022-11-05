@@ -22,6 +22,7 @@ import { asyncCheckAuth, checkWorkplaces } from "./store-toolkit/userSlice";
 import SettingsPage from "./components/settingsPage/SettingsPage";
 import User from "./components/userPage/User";
 import Contact from "./components/contactPage/Contact";
+import MyWorkplaces from "./components/workplaceControllers/MyWorkplaces/MyWorkplaces";
 
 export const AppUIContext = createContext(null);
 
@@ -78,6 +79,7 @@ function App() {
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/user" element={<User />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/myworkplaces" element={<MyWorkplaces />} />
             </Routes>
             {status === "loading" && <Loader />}
           </div>

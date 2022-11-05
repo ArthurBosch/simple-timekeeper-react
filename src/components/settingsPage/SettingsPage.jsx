@@ -16,7 +16,10 @@ const SettingsPage = () => {
           <Link to="/createWorkplace">Create workplace</Link>
         </li>
         <li>
-          <Link to="/user">User</Link>
+          <Link to="/myWorkplaces">My Workplaces</Link>
+        </li>
+        <li>
+          <Link to="/user">Log Out</Link>
         </li>
         <li>
           <Link to="/contact">Contact Me</Link>

@@ -98,6 +98,32 @@ export const checkWorkplaces = createAsyncThunk(
   }
 );
 
+export const asyncDeleteWorkplace = createAsyncThunk(
+  "user/asyncDeleteWorkplace",
+  async function (id, { rejectWithValue, dispatch }) {
+    const token = JSON.parse(localStorage.getItem("token"));
+    try {
+      const res = await fetch(`${PORT}/workplace/${id}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("error while deleting workplace");
+      }
+
+      const data = await res.json();
+      if (data.success) {
+        dispatch(deleteWorkplace(id));
+      }
+    } catch (err) {
+      rejectWithValue(err.message);
+    }
+  }
+);
+
 export const asyncCheckAuth = createAsyncThunk(
   "user/asyncChechAuth",
   async function (_, { rejectWithValue, dispatch }) {
@@ -179,6 +205,18 @@ const userSlice = createSlice({
       state.activeWorkplace = state.workplaces[0];
       state.noWorkplace = false;
     },
+    deleteWorkplace(state, action) {
+      const filteredWorkplaces = state.workplaces.filter(
+        (workplace) => workplace.id !== action.payload
+      );
+      state.workplaces = filteredWorkplaces;
+      if (state.workplaces.length === 0) {
+        state.noWorkplace = true;
+        state.activeWorkplace = null;
+      } else {
+        state.activeWorkplace = state.workplaces[0];
+      }
+    },
     completeAuth(state, action) {
       state.token = action.payload.token;
       state.loggedIn = true;
@@ -196,6 +234,8 @@ const userSlice = createSlice({
     [asyncCreateWorkplace.fulfilled]: setFullfilled,
     [checkWorkplaces.pending]: setPending,
     [checkWorkplaces.fulfilled]: setFullfilled,
+    [asyncDeleteWorkplace.pending]: setPending,
+    [asyncDeleteWorkplace.fulfilled]: setFullfilled,
     [asyncSingIn.rejected]: setError,
     [asyncSignUp.rejected]: setError,
     [asyncCreateWorkplace.rejected]: setError,
@@ -205,10 +245,17 @@ const userSlice = createSlice({
       state.token = null;
       localStorage.removeItem("token");
     },
+    [asyncDeleteWorkplace.rejected]: setError,
   },
 });
-const { signUp, signIn, createWorkplace, getWorkplaces, completeAuth } =
-  userSlice.actions;
+const {
+  signUp,
+  signIn,
+  createWorkplace,
+  getWorkplaces,
+  completeAuth,
+  deleteWorkplace,
+} = userSlice.actions;
 export const { checkAuth, changeActiveWorkplace, signOut } = userSlice.actions;
 
 export default userSlice.reducer;

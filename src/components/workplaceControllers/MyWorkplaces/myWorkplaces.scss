@@ -1,0 +1,58 @@
+@import "../../../vars.module.scss";
+.myworkplaces-main {
+  width: 100%;
+}
+.myworkplaces-list--container {
+  width: 100%;
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    li {
+      width: 80%;
+      margin: 1em;
+    }
+  }
+}
+
+.workplace-card {
+  padding: 1em;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: linear-gradient(90deg, $green-light 0%, $green-dark 100%);
+  color: #fff;
+  border-radius: 15px;
+  .card-info {
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    span {
+      display: block;
+      margin: 0 0.3em;
+      opacity: 0.7;
+    }
+  }
+  .card-controls {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      margin: 1em;
+      padding: 1em;
+      background: none;
+      border-radius: 5px;
+      color: #fff;
+      border: 1px solid $main-color;
+    }
+  }
+}
+
+#button-delete {
+  background-color: $red-delete;
+  border: none;
+}
