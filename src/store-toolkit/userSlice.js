@@ -98,9 +98,40 @@ export const checkWorkplaces = createAsyncThunk(
   }
 );
 
+export const asyncCheckAuth = createAsyncThunk(
+  "user/asyncChechAuth",
+  async function (_, { rejectWithValue, dispatch }) {
+    const token = JSON.parse(localStorage.getItem("token"));
+    try {
+      const res = await fetch(`${PORT}/auth/checkAuth`, {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Token expired");
+      }
+
+      dispatch(completeAuth(token));
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+const setPending = (state, action) => {
+  state.status = "loading";
+  state.error = null;
+};
+const setFullfilled = (state, action) => {
+  state.status = "resolved";
+  state.error = null;
+};
 const setError = (state, action) => {
   state.status = "rejected";
   state.error = action.payload;
+  state.authError = action.payload;
 };
 
 const userSlice = createSlice({
@@ -148,43 +179,36 @@ const userSlice = createSlice({
       state.activeWorkplace = state.workplaces[0];
       state.noWorkplace = false;
     },
-    checkAuth(state) {
-      const token = localStorage.getItem("token");
-      if (token) {
-        state.token = token;
-        state.loggedIn = true;
-      }
+    completeAuth(state, action) {
+      state.token = action.payload.token;
+      state.loggedIn = true;
     },
     changeActiveWorkplace(state, action) {
       state.activeWorkplace = action.payload;
     },
   },
   extraReducers: {
-    [asyncSignUp.pending]: (state) => {
-      state.status = "loading";
-      state.error = null;
-    },
-    [asyncSingIn.pending]: (state) => {
-      state.status = "loading";
-      state.error = null;
-    },
-    [asyncSignUp.fulfilled]: (state) => {
-      state.status = "resolved";
-      state.error = null;
-    },
-    [asyncSingIn.fulfilled]: (state) => {
-      state.status = "resolved";
-      state.error = null;
-    },
-    [asyncSingIn.rejected]: (state, action) => {
-      state.status = "rejected";
-      state.error = action.payload;
-      state.authError = action.payload;
-    },
+    [asyncSignUp.pending]: setPending,
+    [asyncSingIn.pending]: setPending,
+    [asyncSignUp.fulfilled]: setFullfilled,
+    [asyncSingIn.fulfilled]: setFullfilled,
+    [asyncCreateWorkplace.pending]: setPending,
+    [asyncCreateWorkplace.fulfilled]: setFullfilled,
+    [checkWorkplaces.pending]: setPending,
+    [checkWorkplaces.fulfilled]: setFullfilled,
+    [asyncSingIn.rejected]: setError,
     [asyncSignUp.rejected]: setError,
+    [asyncCreateWorkplace.rejected]: setError,
+    [checkWorkplaces.rejected]: setError,
+    [asyncCheckAuth.rejected]: (state, action) => {
+      state.loggedIn = false;
+      state.token = null;
+      localStorage.removeItem("token");
+    },
   },
 });
-const { signUp, signIn, createWorkplace, getWorkplaces } = userSlice.actions;
+const { signUp, signIn, createWorkplace, getWorkplaces, completeAuth } =
+  userSlice.actions;
 export const { checkAuth, changeActiveWorkplace, signOut } = userSlice.actions;
 
 export default userSlice.reducer;

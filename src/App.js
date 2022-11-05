@@ -18,7 +18,7 @@ import { fetchShifts } from "./store-toolkit/shiftSlice";
 import { checkLocalActiveShift } from "./store-toolkit/shiftSlice";
 import Auth from "./components/authPage/Auth";
 import CreateWorkplace from "./components/workplaceControllers/CreateWorkplacePage";
-import { checkAuth, checkWorkplaces } from "./store-toolkit/userSlice";
+import { asyncCheckAuth, checkWorkplaces } from "./store-toolkit/userSlice";
 import SettingsPage from "./components/settingsPage/SettingsPage";
 import User from "./components/userPage/User";
 import Contact from "./components/contactPage/Contact";
@@ -31,7 +31,7 @@ function App() {
   const { loggedIn, noWorkplace } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
-    dispatch(checkAuth());
+    dispatch(asyncCheckAuth());
     if (loggedIn) {
       dispatch(checkWorkplaces());
       dispatch(fetchShifts());
