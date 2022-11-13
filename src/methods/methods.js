@@ -96,6 +96,7 @@ export const countEarningsByMiliSeconds = (miliseconds, baseWage = 47) => {
 };
 
 export const convert12to24 = (timeStr) => {
+  console.log(timeStr);
   const [time, modifier] = timeStr.split(" ");
   let [hours, minutes] = time.split(":");
   if (hours === "12") {
@@ -118,9 +119,11 @@ export const getFormattedDataFromDay = (timeStart, timeEnd, weekday, wage) => {
   const optionsMonth = { month: "short" };
   const month = new Intl.DateTimeFormat("en-US", optionsMonth).format(baseDate);
   const day = new Intl.DateTimeFormat("en-US", optionsDay).format(baseDate);
-  const timeStartToDisplay = convert12to24(baseDate.toLocaleTimeString());
+  const timeStartToDisplay = convert12to24(
+    baseDate.toLocaleTimeString("en-US")
+  );
   const timeEndToDisplay = convert12to24(
-    new Date(timeEnd).toLocaleTimeString()
+    new Date(timeEnd).toLocaleTimeString("en-US")
   );
   const earningsToDisplay = countDayEarnings({ timeStart, timeEnd }, wage);
   const workingHours = countDayHours({ timeStart, timeEnd });
